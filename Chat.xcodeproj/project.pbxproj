@@ -21,6 +21,7 @@
 		3AF9C81827F25F3C00197244 /* UIStackView + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF9C81727F25F3C00197244 /* UIStackView + extension.swift */; };
 		3AF9C81A27F2634300197244 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF9C81927F2634300197244 /* SignUpViewController.swift */; };
 		3AF9C81C27F267BE00197244 /* OneLineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF9C81B27F267BE00197244 /* OneLineTextField.swift */; };
+		3AF9C81E27F3A76600197244 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF9C81D27F3A76600197244 /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		3AF9C81727F25F3C00197244 /* UIStackView + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView + extension.swift"; sourceTree = "<group>"; };
 		3AF9C81927F2634300197244 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		3AF9C81B27F267BE00197244 /* OneLineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneLineTextField.swift; sourceTree = "<group>"; };
+		3AF9C81D27F3A76600197244 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 				3AF9C7F527F23CF900197244 /* SceneDelegate.swift */,
 				3AF9C81427F255EE00197244 /* Extension */,
 				3AF9C7F727F23CF900197244 /* AuthViewController.swift */,
+				3AF9C81D27F3A76600197244 /* LoginViewController.swift */,
 				3AF9C81927F2634300197244 /* SignUpViewController.swift */,
 				3AF9C80727F246D200197244 /* Assets.xcassets */,
 				3AF9C7FE27F23CFC00197244 /* LaunchScreen.storyboard */,
@@ -188,6 +191,7 @@
 				3AF9C80E27F24DE800197244 /* UIColor + extension.swift in Sources */,
 				3AF9C81827F25F3C00197244 /* UIStackView + extension.swift in Sources */,
 				3AF9C80A27F248BD00197244 /* UIButton + extension.swift in Sources */,
+				3AF9C81E27F3A76600197244 /* LoginViewController.swift in Sources */,
 				3AF9C7F627F23CF900197244 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
