@@ -10,6 +10,18 @@ import UIKit
 class SetupProfileViewController: UIViewController {
 	
 	let fillImageView = AddPhotoView()
+	let welcomeLabel = UILabel(text: "Setup profile", font: .avenir26())
+	
+	let fullNameLabel = UILabel(text: "Full name")
+	let aboutMeLabel = UILabel(text: "About me")
+	let sexLabel = UILabel(text: "sex")
+
+	
+	let fullNameTF = OneLineTextField(font: .avenir20())
+	let aboutMeTF = OneLineTextField(font: .avenir20())
+	let sexSegmentedControl = UISegmentedControl(first: "Male", second: "Female")
+	let goToChatsButton = UIButton(backrounColor: .buttonDark(), titleColor: .white, title: "Go to chats!")
+	
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()

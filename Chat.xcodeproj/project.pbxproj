@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3A5CE5D627F5044300669AC4 /* SetupProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5CE5D527F5044300669AC4 /* SetupProfileViewController.swift */; };
 		3A5CE5D827F5074200669AC4 /* AddPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5CE5D727F5074200669AC4 /* AddPhotoView.swift */; };
+		3A5CE5DA27F5102000669AC4 /* SegmentedControl + extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5CE5D927F5102000669AC4 /* SegmentedControl + extention.swift */; };
 		3AF9C7F427F23CF900197244 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF9C7F327F23CF900197244 /* AppDelegate.swift */; };
 		3AF9C7F627F23CF900197244 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF9C7F527F23CF900197244 /* SceneDelegate.swift */; };
 		3AF9C7F827F23CF900197244 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF9C7F727F23CF900197244 /* AuthViewController.swift */; };
@@ -29,6 +30,7 @@
 /* Begin PBXFileReference section */
 		3A5CE5D527F5044300669AC4 /* SetupProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupProfileViewController.swift; sourceTree = "<group>"; };
 		3A5CE5D727F5074200669AC4 /* AddPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoView.swift; sourceTree = "<group>"; };
+		3A5CE5D927F5102000669AC4 /* SegmentedControl + extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SegmentedControl + extention.swift"; sourceTree = "<group>"; };
 		3AF9C7F027F23CF900197244 /* Chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AF9C7F327F23CF900197244 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3AF9C7F527F23CF900197244 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				3AF9C81727F25F3C00197244 /* UIStackView + extension.swift */,
 				3AF9C80927F248BD00197244 /* UIButton + extension.swift */,
 				3AF9C80B27F24C9E00197244 /* UIFont + extension.swift */,
+				3A5CE5D927F5102000669AC4 /* SegmentedControl + extention.swift */,
 				3AF9C80F27F2527300197244 /* UILabel + extension.swift */,
 				3AF9C81127F2546200197244 /* UIImageView + extension.swift */,
 				3AF9C80D27F24DE800197244 /* UIColor + extension.swift */,
@@ -201,6 +204,7 @@
 				3AF9C80A27F248BD00197244 /* UIButton + extension.swift in Sources */,
 				3AF9C81E27F3A76600197244 /* LoginViewController.swift in Sources */,
 				3AF9C7F627F23CF900197244 /* SceneDelegate.swift in Sources */,
+				3A5CE5DA27F5102000669AC4 /* SegmentedControl + extention.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
