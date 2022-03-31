@@ -12,7 +12,7 @@ class SignUpViewController: UIViewController {
 	let welcomeLabel = UILabel(text: "Good to see you!", font: .avenir26())
 	
 	let emailLabel = UILabel(text: "Email")
-	let passwordLabel = UILabel(text: "Eassword")
+	let passwordLabel = UILabel(text: "Password")
 	let confirmPasswordLabel = UILabel(text: "Confirm password")
 	let alreadyOnboardLabel = UILabel(text: "Already onboard?")
 	let emailTextField = OneLineTextField(font: .avenir20())
