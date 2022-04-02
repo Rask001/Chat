@@ -35,6 +35,11 @@ extension PeopleViewController: UISearchBarDelegate {
 		print(searchText)
 	}
 }
+
+
+
+
+
 //MARK: - SWIFT UI
 import SwiftUI
 
