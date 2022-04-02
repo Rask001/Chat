@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A3B9A6E27F9026B00D7AA21 /* waitingChats.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A49FC4327F82EF7009C5CB6 /* waitingChats.json */; };
+		3A3B9A6F27F9027200D7AA21 /* activeChats.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A49FC4227F82EF7009C5CB6 /* activeChats.json */; };
 		3A49FC3627F638FB009C5CB6 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A49FC3527F638FB009C5CB6 /* MainTabBarController.swift */; };
 		3A49FC3827F6397A009C5CB6 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A49FC3727F6397A009C5CB6 /* ListViewController.swift */; };
 		3A49FC3A27F63995009C5CB6 /* PeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A49FC3927F63995009C5CB6 /* PeopleViewController.swift */; };
@@ -73,6 +75,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A3B9A7027F903A000D7AA21 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3AF7C92D27F85A690038B152 /* ModelData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		3A49FC3427F63888009C5CB6 /* SignIn&Auth VC */ = {
 			isa = PBXGroup;
 			children = (
@@ -89,7 +99,6 @@
 			children = (
 				3A49FC3527F638FB009C5CB6 /* MainTabBarController.swift */,
 				3A49FC3727F6397A009C5CB6 /* ListViewController.swift */,
-				3AF7C92D27F85A690038B152 /* ModelData.swift */,
 				3A49FC3927F63995009C5CB6 /* PeopleViewController.swift */,
 			);
 			path = Controllers;
@@ -98,6 +107,8 @@
 		3AF9C7E727F23CF800197244 = {
 			isa = PBXGroup;
 			children = (
+				3A49FC4227F82EF7009C5CB6 /* activeChats.json */,
+				3A49FC4327F82EF7009C5CB6 /* waitingChats.json */,
 				3AF9C7F227F23CF900197244 /* Chat */,
 				3AF9C7F127F23CF900197244 /* Products */,
 			);
@@ -114,10 +125,9 @@
 		3AF9C7F227F23CF900197244 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				3A49FC4227F82EF7009C5CB6 /* activeChats.json */,
-				3A49FC4327F82EF7009C5CB6 /* waitingChats.json */,
 				3AF9C7F327F23CF900197244 /* AppDelegate.swift */,
 				3AF9C7F527F23CF900197244 /* SceneDelegate.swift */,
+				3A3B9A7027F903A000D7AA21 /* Model */,
 				3A49FC3B27F63A75009C5CB6 /* Controllers */,
 				3AF9C81427F255EE00197244 /* Extension */,
 				3A49FC3427F63888009C5CB6 /* SignIn&Auth VC */,
@@ -212,6 +222,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A3B9A6F27F9027200D7AA21 /* activeChats.json in Resources */,
+				3A3B9A6E27F9026B00D7AA21 /* waitingChats.json in Resources */,
 				3AF9C80027F23CFC00197244 /* LaunchScreen.storyboard in Resources */,
 				3AF9C80827F246D200197244 /* Assets.xcassets in Resources */,
 			);
@@ -388,6 +400,7 @@
 				INFOPLIST_FILE = Chat/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -415,6 +428,7 @@
 				INFOPLIST_FILE = Chat/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
