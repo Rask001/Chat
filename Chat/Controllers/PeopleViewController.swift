@@ -29,7 +29,7 @@ class PeopleViewController: UIViewController {
 		setupSearchBar()
 		setupCollectionView()
 		createDataSource()
-		reloadData()
+		reloadData(with: nil)
 		}
 	}
 extension PeopleViewController {
@@ -50,6 +50,8 @@ extension PeopleViewController {
 		layout.configuration = config
 		//изменеие вертикального расстояния между секциями
 		return layout
+		
+		
 	}
 	private func createUsersSection() -> NSCollectionLayoutSection {
 		let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
@@ -87,10 +89,14 @@ extension PeopleViewController {
 		searchController.searchBar.delegate = self
 		}
 	
-	private func reloadData() {
+	private func reloadData(with searchText: String?) { //в качестве входного параметра вносим ?стринг?
+		let filtered = users.filter { (user) -> Bool in
+			user.contains(filter: searchText)
+		}
+		
 	var snapshot = NSDiffableDataSourceSnapshot<Section, MUser>()
 	snapshot.appendSections([.users])
-	snapshot.appendItems(users, toSection: .users)
+	snapshot.appendItems(filtered , toSection: .users)  //вносимм отфильтрованный массив
 
 	dataSource?.apply(snapshot, animatingDifferences: true)
 }
@@ -99,7 +105,7 @@ extension PeopleViewController {
 
 extension PeopleViewController: UISearchBarDelegate {
 	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-		print(searchText)
+		reloadData(with: searchText)
 	}
 }
 
