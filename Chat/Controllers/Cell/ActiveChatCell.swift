@@ -6,13 +6,6 @@
 //
 
 import UIKit
-//MARK: - Protocol
-protocol SelfConfigCellProtocol {
-	static var reuseId: String { get }
-	func configure(with value: MChat)
-}
-
-
 
 //MARK: - ActiveChatCell
 class ActiveChatCell: UICollectionViewCell {

@@ -18,6 +18,8 @@
 		3A9BCAA827F908AF00C64A12 /* ActiveChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9BCAA727F908AF00C64A12 /* ActiveChatCell.swift */; };
 		3A9BCAAA27F91B2700C64A12 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A3B9A7227F9047A00D7AA21 /* Assets.xcassets */; };
 		3A9BCAAC27F91BF100C64A12 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9BCAAB27F91BF100C64A12 /* GradientView.swift */; };
+		3A9BCAAE27F925C900C64A12 /* WaitingChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9BCAAD27F925C900C64A12 /* WaitingChatCell.swift */; };
+		3A9BCAB027F9279600C64A12 /* SelfConfigurationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9BCAAF27F9279600C64A12 /* SelfConfigurationCell.swift */; };
 		3AF7C92E27F85A690038B152 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF7C92D27F85A690038B152 /* ModelData.swift */; };
 		3AF7C93027F862410038B152 /* Bundle - Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF7C92F27F862410038B152 /* Bundle - Decodable.swift */; };
 		3AF9C7F427F23CF900197244 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF9C7F327F23CF900197244 /* AppDelegate.swift */; };
@@ -48,6 +50,8 @@
 		3A5CE5D927F5102000669AC4 /* SegmentedControl + extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SegmentedControl + extention.swift"; sourceTree = "<group>"; };
 		3A9BCAA727F908AF00C64A12 /* ActiveChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveChatCell.swift; sourceTree = "<group>"; };
 		3A9BCAAB27F91BF100C64A12 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		3A9BCAAD27F925C900C64A12 /* WaitingChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingChatCell.swift; sourceTree = "<group>"; };
+		3A9BCAAF27F9279600C64A12 /* SelfConfigurationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfConfigurationCell.swift; sourceTree = "<group>"; };
 		3AF7C92D27F85A690038B152 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
 		3AF7C92F27F862410038B152 /* Bundle - Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle - Decodable.swift"; sourceTree = "<group>"; };
 		3AF9C7F027F23CF900197244 /* Chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,8 +131,17 @@
 			isa = PBXGroup;
 			children = (
 				3A9BCAA727F908AF00C64A12 /* ActiveChatCell.swift */,
+				3A9BCAAD27F925C900C64A12 /* WaitingChatCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		3A9BCAB127F927EB00C64A12 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				3A9BCAAF27F9279600C64A12 /* SelfConfigurationCell.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		3AF9C7E727F23CF800197244 = {
@@ -153,6 +166,7 @@
 				3A3B9A7127F9045B00D7AA21 /* Support files */,
 				3A3B9A7027F903A000D7AA21 /* Model */,
 				3A49FC3B27F63A75009C5CB6 /* Controllers */,
+				3A9BCAB127F927EB00C64A12 /* Protocols */,
 				3AF9C81427F255EE00197244 /* Extension */,
 				3A49FC3427F63888009C5CB6 /* SignIn&Auth VC */,
 			);
@@ -277,10 +291,12 @@
 				3AF9C81E27F3A76600197244 /* LoginViewController.swift in Sources */,
 				3A49FC3827F6397A009C5CB6 /* ListViewController.swift in Sources */,
 				3AF9C7F627F23CF900197244 /* SceneDelegate.swift in Sources */,
+				3A9BCAAE27F925C900C64A12 /* WaitingChatCell.swift in Sources */,
 				3AF7C92E27F85A690038B152 /* ModelData.swift in Sources */,
 				3A9BCAA827F908AF00C64A12 /* ActiveChatCell.swift in Sources */,
 				3A5CE5DA27F5102000669AC4 /* SegmentedControl + extention.swift in Sources */,
 				3A49FC3627F638FB009C5CB6 /* MainTabBarController.swift in Sources */,
+				3A9BCAB027F9279600C64A12 /* SelfConfigurationCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
