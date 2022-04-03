@@ -12,8 +12,8 @@ class ListViewController: UIViewController {
 //	let waitingChats = Bundle.main.decode([MChat].self, from: "waitingChats.json")
 	
 	
-	let activeChats = reedJson(name: "activeChats")
-	let waitingChats = reedJson(name: "waitingChats")
+	let activeChats = reedJsonMChat(name: "activeChats")
+	let waitingChats = reedJsonMChat(name: "waitingChats")
 	
 	enum Section: Int, CaseIterable {
 			case  waitingChats, activeChats
@@ -81,11 +81,7 @@ class ListViewController: UIViewController {
 extension ListViewController {
 	
 	
-	private func configure<T: SelfConfigCellProtocol>(cellType: T.Type, with value: MChat, for indexPath: IndexPath) -> T {
-		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellType.reuseId, for: indexPath) as? T else { fatalError("Unable to dequeue\(cellType)")}
-		cell.configure(with: value)
-		return cell
-	}
+	
 	
 	
 	private func createDataSource() {
@@ -96,9 +92,9 @@ extension ListViewController {
 			
 			switch section {
 			case .activeChats:
-				return self.configure(cellType: ActiveChatCell.self, with: chat, for: indexPath)
+				return self.config(collectionView: collectionView, cellType: ActiveChatCell.self, with: chat, for: indexPath)
 			case .waitingChats:
-				return self.configure(cellType: WaitingChatCell.self, with: chat, for: indexPath)
+				return self.config(collectionView: collectionView, cellType: WaitingChatCell.self, with: chat, for: indexPath)
 			}
 		})
 		dataSource?.supplementaryViewProvider = {
@@ -170,7 +166,7 @@ extension ListViewController {
 		return section
 	}
 	
-	private func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem{
+	private func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
 		let sectionHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), //cоздание размера секции хедера
 																									 heightDimension: .estimated(1 ))
 		let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: sectionHeaderSize,
