@@ -17,6 +17,15 @@ class ListViewController: UIViewController {
 	
 	enum Section: Int, CaseIterable {
 			case  waitingChats, activeChats
+		
+		func description() -> String {
+			switch self {
+			case .waitingChats:
+				return "Waiting chats"
+			case .activeChats:
+				return "Active chats"
+			}
+		}
 	}
 
 	//MARK: - Properties
@@ -51,6 +60,8 @@ class ListViewController: UIViewController {
 		collectionView.backgroundColor = .mainWhite()
 		view.addSubview(collectionView)
 	
+		collectionView.register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeader.reuseId)
+		
 		collectionView.register(ActiveChatCell.self, forCellWithReuseIdentifier: ActiveChatCell.reuseId)
 		collectionView.register(WaitingChatCell.self, forCellWithReuseIdentifier: WaitingChatCell.reuseId)
 	}
@@ -90,8 +101,20 @@ extension ListViewController {
 				return self.configure(cellType: WaitingChatCell.self, with: chat, for: indexPath)
 			}
 		})
+		dataSource?.supplementaryViewProvider = {
+			collectionView, kind, indexPath in
+			guard let sectionHeader =
+							collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeader.reuseId, for: indexPath) as? SectionHeader else {
+				fatalError("Can not create new section header") }
+			guard let section = Section(rawValue: indexPath.section) else {
+				fatalError("Unknow section kind") }
+			sectionHeader.configure(text: section.description(),
+															font: .laoSangamMN20(),
+															textColor: .lightGray)
+							return sectionHeader
+			}
+		}
 	}
-}
 
 //MARK: - Create Composition Layout
 extension ListViewController {
@@ -108,6 +131,12 @@ extension ListViewController {
 				return self.createActiveChats()
 			}
 		}
+		//
+		//
+		let config = UICollectionViewCompositionalLayoutConfiguration()
+		config.interSectionSpacing = 16
+		layout.configuration = config
+		//изменеие вертикального расстояния между секциями
 		return layout
 	}
 	
@@ -121,6 +150,8 @@ extension ListViewController {
 		section.contentInsets = NSDirectionalEdgeInsets.init(top: 16, leading: 20, bottom: 0, trailing: 20)
 		section.interGroupSpacing = 16
 		section.orthogonalScrollingBehavior = .continuous
+    let sectionHeader = createSectionHeader()
+		section.boundarySupplementaryItems = [sectionHeader] //вставляем в массив результат функции
 		return section
 	}
 	
@@ -134,7 +165,18 @@ extension ListViewController {
 		let section = NSCollectionLayoutSection(group: group) //добавляем в секцию нашу группу
 		section.contentInsets = NSDirectionalEdgeInsets.init(top: 16, leading: 20, bottom: 0, trailing: 20)
 		section.interGroupSpacing = 8
+		let sectionHeader = createSectionHeader()
+		section.boundarySupplementaryItems = [sectionHeader] //вставляем в массив результат функции
 		return section
+	}
+	
+	private func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem{
+		let sectionHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), //cоздание размера секции хедера
+																									 heightDimension: .estimated(1 ))
+		let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: sectionHeaderSize,
+																																		elementKind: UICollectionView.elementKindSectionHeader,
+																																		alignment: .top)  //настройка секции хедера
+		return sectionHeader
 	}
 }
 
