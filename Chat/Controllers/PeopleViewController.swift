@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import Firebase
 
-class PeopleViewController: UIViewController {
+class PeopleViewController: UIViewController, UISearchBarDelegate {
 	
 	let users = reedJsonMUser(name: "users")
 	var collectionView: UICollectionView!
@@ -27,11 +28,27 @@ class PeopleViewController: UIViewController {
 		super.viewDidLoad()
 		view.backgroundColor = .mainWhite()
 		setupSearchBar()
+		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Log out", style: .plain, target: self, action: #selector(signOut))
 		setupCollectionView()
 		createDataSource()
 		reloadData(with: nil)
 		}
-	}
+	
+	@objc private func signOut() {
+		let ac = UIAlertController(title: nil, message: "уверен что хочешь выйти?", preferredStyle: .alert)
+		ac.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
+		ac.addAction(UIAlertAction(title: "sign out", style: .destructive, handler: { _ in
+			do {
+				try Auth.auth().signOut()
+					UIApplication.shared.keyWindow?.rootViewController = AuthViewController()
+			} catch {
+				print("error signIng out: \(error.localizedDescription)")
+			}
+		}))
+		present(ac, animated: true, completion: nil)
+		}
+}
+	
 extension PeopleViewController {
 	private func createCompositionLayout() -> UICollectionViewLayout {
 		let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnviroment) -> NSCollectionLayoutSection? in
@@ -50,9 +67,8 @@ extension PeopleViewController {
 		layout.configuration = config
 		//изменеие вертикального расстояния между секциями
 		return layout
-		
-		
 	}
+	
 	private func createUsersSection() -> NSCollectionLayoutSection {
 		let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
 																					heightDimension: .fractionalHeight(1))
@@ -88,7 +104,7 @@ extension PeopleViewController {
 		searchController.obscuresBackgroundDuringPresentation = false
 		searchController.searchBar.delegate = self
 		}
-	
+
 	private func reloadData(with searchText: String?) { //в качестве входного параметра вносим ?стринг?
 		let filtered = users.filter { (user) -> Bool in
 			user.contains(filter: searchText)
@@ -103,7 +119,7 @@ extension PeopleViewController {
 }
 
 
-extension PeopleViewController: UISearchBarDelegate {
+extension PeopleViewController {
 	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 		reloadData(with: searchText)
 	}
@@ -117,7 +133,7 @@ extension PeopleViewController {
 			}
 			switch section {
 			case .users:
-				
+
 				return self.config(collectionView: collectionView, cellType: UserCell.self, with: user, for: indexPath)
 			}
 		})
@@ -139,7 +155,7 @@ extension PeopleViewController {
 
 
 extension PeopleViewController {
-	
+
 private func setupCollectionView() {
 	collectionView = UICollectionView(frame: view.bounds,
 																		collectionViewLayout: createCompositionLayout())
@@ -148,7 +164,7 @@ private func setupCollectionView() {
 	view.addSubview(collectionView)
 
 	collectionView.register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeader.reuseId)
-	
+
 	collectionView.register(UserCell.self, forCellWithReuseIdentifier: UserCell.reuseId)
 	}
 }
@@ -165,14 +181,15 @@ struct PeopleVCProvider: PreviewProvider {
 			ContainerView().edgesIgnoringSafeArea(.all)
 		}
 	}
-	
+
 	struct ContainerView: UIViewControllerRepresentable {
 		let tabBarVC = MainTabBarController()
 		func makeUIViewController(context: UIViewControllerRepresentableContext<PeopleVCProvider.ContainerView>) -> MainTabBarController {
 			return tabBarVC
 		}
 		func updateUIViewController(_ uiViewController: MainTabBarController , context: Context) {
-			
+
 		}
 	}
 }
+

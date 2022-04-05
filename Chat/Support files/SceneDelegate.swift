@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -15,7 +16,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 		guard let windowScene = (scene as? UIWindowScene) else { return }
 		let window = UIWindow(windowScene: windowScene)
-		window.rootViewController = ChatRequestViewController()
+		
+		
+		// 
+		if let user = Auth.auth().currentUser {
+			FirestoreService.shared.getUserData(user: user) { result in
+				
+				switch result { //посылаем либо на главный экран либо заполнять инфу о себе
+				case .success(let muser):
+					self.window?.rootViewController = MainTabBarController()
+				case .failure(let error):
+					self.window?.rootViewController = AuthViewController()
+				}
+			}
+		} else {
+			window.rootViewController = AuthViewController()
+		}
+		
 		window.makeKeyAndVisible()
 		self.window = window
 	}

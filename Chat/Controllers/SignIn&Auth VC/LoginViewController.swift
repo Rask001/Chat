@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class LoginViewController: UIViewController {
 	
 	
@@ -32,6 +33,8 @@ class LoginViewController: UIViewController {
 		signUpButton.contentVerticalAlignment = .bottom
 		return signUpButton
 	}()
+	
+	weak var delegate: AuthNavigationDelegateProtocol?
 
 	
 	
@@ -40,7 +43,28 @@ class LoginViewController: UIViewController {
 		setupConstraints()
 		googleButton.customizeGoogleButton()
 		   view.backgroundColor = .white
+		loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+		signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
 	}
+	
+	@objc private func loginButtonTapped() {
+		AuthService.shared.login(email: emailTextField.text!,
+														 password: passwordTextField.text!) { (result) in
+			switch result {
+				
+			case .success(let user):
+				self.showAllert(title: "Success!", message: "You are auturization")
+			case .failure(let error):
+				self.showAllert(title: "Error", message: "\(error.localizedDescription)")
+			}
+		}
+														
+}
+	@objc private func signUpButtonTapped() {
+		self.dismiss(animated: true) {
+			self.delegate?.toSingUpVC()
+		}
+}
 }
 
 
@@ -57,7 +81,7 @@ extension LoginViewController {
 																										emailStackView,
 																										passwordStackView,
 																										loginButton
-																									 ], axis: .vertical, spacing: 40)
+																									 ], axis: .vertical, spacing: 30)
 
 	  let bottomStackView = UIStackView (arrangedSubviews: [newAccountLabel,
 																													signUpButton
@@ -68,18 +92,20 @@ extension LoginViewController {
 		bottomStackView.translatesAutoresizingMaskIntoConstraints = false
 		welcomeLabel.translatesAutoresizingMaskIntoConstraints = false
 		
+		
 		view.addSubview(welcomeLabel)
 		view.addSubview(stackView)
 		view.addSubview(bottomStackView)
 		
 		
 		NSLayoutConstraint.activate([
-			welcomeLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
-			welcomeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+			welcomeLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 80),
+			welcomeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+			welcomeLabel.heightAnchor.constraint(equalToConstant: 35)
 		])
 		
 		NSLayoutConstraint.activate([
-			stackView.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 80),
+			stackView.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 60),
 			stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
 			stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
 			stackView.bottomAnchor.constraint(equalTo: bottomStackView.topAnchor, constant: -60)
@@ -95,8 +121,6 @@ extension LoginViewController {
 		
 }
 }
-
-
 
 
 

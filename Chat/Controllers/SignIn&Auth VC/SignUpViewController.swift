@@ -31,12 +31,36 @@ class SignUpViewController: UIViewController {
 		return loginButton
 	}()
 	
+	weak var delegate: AuthNavigationDelegateProtocol?
+	
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.view.backgroundColor = .white
 		setupConstraints()
+		signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
+		loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
 	}
+	@objc private func signUpButtonTapped() {
+		AuthService.shared.register(email: emailTextField.text,
+																password: passwordTextField.text,
+																confirmPassword: confirmPasswordTextField.text) { (result) in
+			switch result {
+				
+			case .success(let user):
+				self.showAllert(title: "Success!", message: "You are registered") {
+					self.present(SetupProfileViewController(currentUser: user), animated: true, completion: nil)
+				}
+			case .failure(let error):
+				self.showAllert(title: "Error", message: "\(error.localizedDescription)")
+			}
+		}
+	} 
+	@objc private func loginButtonTapped() {
+		self.dismiss(animated: true) {
+			self.delegate?.toLoginVC()
+		}
+}
 }
 
 //MARK: - Setup constraints
@@ -52,25 +76,25 @@ extension SignUpViewController {
 		let stackView = UIStackView(arrangedSubviews: [emailStackView,
 																									 passwordStackView,
 																									 confirmPasswordStackView,
-																									 signUpButton], axis: .vertical, spacing: 40)
+																									 signUpButton], axis: .vertical, spacing: 30)
 		
     let bottomStackView = UIStackView(arrangedSubviews: [alreadyOnboardLabel, loginButton], axis: .horizontal, spacing: 20)
 		bottomStackView.alignment = .firstBaseline
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		bottomStackView.translatesAutoresizingMaskIntoConstraints = false
 		welcomeLabel.translatesAutoresizingMaskIntoConstraints = false
-		
 		view.addSubview(welcomeLabel)
 		view.addSubview(stackView)
 		view.addSubview(bottomStackView)
 		
 		NSLayoutConstraint.activate ([
-			welcomeLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 160),
-			welcomeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+			welcomeLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
+			welcomeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+			welcomeLabel.heightAnchor.constraint(equalToConstant: 35)
 		])
 	
 		NSLayoutConstraint.activate([
-			stackView.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 160),
+			stackView.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 120),
 			stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
 			stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
 			stackView.bottomAnchor.constraint(equalTo: bottomStackView.topAnchor, constant: -60)
@@ -105,3 +129,17 @@ struct SignUpVCProider: PreviewProvider {
 		}
 	}
 }
+
+
+
+
+extension UIViewController {
+	func showAllert(title: String, message: String, completion: @escaping()->() = {}) {
+		let allertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+		let okAction = UIAlertAction(title: "Ok", style: .default) { (_) in
+			completion()
+		}
+		allertController.addAction(okAction)
+		present(allertController, animated: true, completion: nil)
+		}
+	}
