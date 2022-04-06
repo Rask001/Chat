@@ -10,7 +10,7 @@ import Firebase
 
 class PeopleViewController: UIViewController, UISearchBarDelegate {
 	
-	let users = reedJsonMUser(name: "users")
+	let users = [MUser]()
 	var collectionView: UICollectionView!
 	var dataSource: UICollectionViewDiffableDataSource<Section,MUser>!
 	

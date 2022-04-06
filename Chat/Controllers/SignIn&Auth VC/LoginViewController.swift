@@ -49,17 +49,28 @@ class LoginViewController: UIViewController {
 	
 	@objc private func loginButtonTapped() {
 		AuthService.shared.login(email: emailTextField.text!,
-														 password: passwordTextField.text!) { (result) in
+														 password: passwordTextField.text!) { result in
 			switch result {
 				
 			case .success(let user):
-				self.showAllert(title: "Success!", message: "You are auturization")
+				self.showAllert(title: "Success!", message: "You are auturization") {
+					FirestoreService.shared.getUserData(user: user) { result in
+						switch result {
+						case .success(let muser):
+							self.present(MainTabBarController(), animated: true, completion: nil)
+						case .failure(let error):
+							self.showAllert(title: "", message: "заполните профиль"){
+							self.present(SetupProfileViewController(currentUser: user), animated: true, completion: nil)
+							}
+						}
+					}
+				}
 			case .failure(let error):
 				self.showAllert(title: "Error", message: "\(error.localizedDescription)")
 			}
 		}
-														
-}
+		
+	}
 	@objc private func signUpButtonTapped() {
 		self.dismiss(animated: true) {
 			self.delegate?.toSingUpVC()

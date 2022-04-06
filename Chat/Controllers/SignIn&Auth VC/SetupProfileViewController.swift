@@ -48,8 +48,10 @@ class SetupProfileViewController: UIViewController {
 			switch result {
 				
 			case .success(let muser):
-				self.showAllert(title: "Успешно!", message: "Приятного общения!")
-				print(muser)
+				self.showAllert(title: "данные сохранены!", message: "Приятного общения!") {
+					self.present(MainTabBarController(), animated: true, completion: nil)
+				}
+				
 			case .failure(let error):
 				self.showAllert(title: "error", message: error.localizedDescription)
 			}
