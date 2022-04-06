@@ -24,7 +24,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 				
 				switch result { //посылаем либо на главный экран либо заполнять инфу о себе
 				case .success(let muser):
-					self.window?.rootViewController = MainTabBarController()
+					let mainTabBar = MainTabBarController(currentUser: muser)
+					mainTabBar.modalPresentationStyle = .fullScreen
+					self.window?.rootViewController = mainTabBar
 				case .failure(let error):
 					self.window?.rootViewController = AuthViewController()
 				}
