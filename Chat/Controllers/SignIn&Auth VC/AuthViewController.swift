@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Firebase
+import GoogleSignIn
 
 class AuthViewController: UIViewController {
 	
@@ -19,7 +21,6 @@ class AuthViewController: UIViewController {
 	let emailButton = UIButton(backrounColor: .buttonDark(), titleColor: .white, title: "Email")
 	let loginButton = UIButton(backrounColor: .white, titleColor: .buttonRed(), title: "Login", isShadow: true)
 	let googleButton = UIButton(backrounColor: .white, titleColor: .black, title: "Google", isShadow: true)
-	
 	let signUpVC = SignUpViewController()
 	let loginVC = LoginViewController()
 	
@@ -30,10 +31,9 @@ class AuthViewController: UIViewController {
 		googleButton.customizeGoogleButton()
 		emailButton.addTarget(self, action: #selector(emailButtonTapped), for: .touchUpInside)
 		loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
-		
+		googleButton.addTarget(self, action: #selector(googleButtonTapped), for: .touchUpInside)
 		signUpVC.delegate = self
 		loginVC.delegate = self
-		
 	}
 	
 	@objc private func emailButtonTapped() {
@@ -44,8 +44,13 @@ class AuthViewController: UIViewController {
 		present(loginVC, animated: true, completion: nil)
 	}
 	
+	@objc private func googleButtonTapped() {
+	}
+		
+	
+	
+	
 }
-
 
 //MARK: - Setup constraints
 
@@ -85,9 +90,9 @@ extension AuthViewController: AuthNavigationDelegateProtocol {
 	func toSingUpVC() {
 		present(signUpVC, animated: true, completion: nil)
 	}
-	
-	
 }
+
+
 
 
 

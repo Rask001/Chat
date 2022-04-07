@@ -7,11 +7,14 @@
 
 import UIKit
 import Firebase
+import GoogleSignIn
 
 class AuthService {
 	
 	static let shared = AuthService() 
 	private let auth = Auth.auth()
+	
+	
 	func login(email: String?, password: String?, completion: @escaping (Result<User,Error>)->Void) {
 		
 		guard let email = email, let password = password else {
@@ -28,6 +31,31 @@ class AuthService {
 			completion(.success(result.user))
 		}
 	}
+	
+	
+	
+	
+	private func googleLogin(user: GIDGoogleUser!, error: Error!, completion: @escaping (Result<User,Error>) -> Void) {
+		if let error = error {
+			completion(.failure(error))
+			return
+		}
+		guard
+			let authentication = user?.authentication,
+			let idToken = authentication.idToken else { return }
+		
+		let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+																									 accessToken: authentication.accessToken)
+		
+		Auth.auth().signIn(with: credential) { (result, error) in
+			guard let result = result else {
+				completion(.failure(error!))
+				return
+			}
+			completion(.success(result.user))
+		}
+	}
+	
 	
 	
 	
