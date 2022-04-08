@@ -26,6 +26,10 @@ class SetupProfileViewController: UIViewController {
 	init(currentUser: User) {
 		self.currentUser = currentUser
 		super.init(nibName: nil, bundle: nil)
+		if let username = currentUser.displayName {
+			fullNameTF.text = username
+		}
+		//потом сделать аватарку
 	}
 	
 	required init?(coder: NSCoder) {

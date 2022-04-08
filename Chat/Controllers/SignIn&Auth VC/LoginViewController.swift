@@ -10,6 +10,7 @@ import UIKit
 
 class LoginViewController: UIViewController {
 	
+//	let authVC = AuthViewController()
 	
 	let welcomeLabel = UILabel(text: "Welcome Back!", font: .avenir26())
 	
@@ -42,11 +43,15 @@ class LoginViewController: UIViewController {
 		super.viewDidLoad()
 		setupConstraints()
 		googleButton.customizeGoogleButton()
+		googleButton.addTarget(self, action: #selector(googleButtonTapped), for: .touchUpInside)
 		   view.backgroundColor = .white
 		loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
 		signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
 	}
 	
+	@objc private func googleButtonTapped() {
+		AuthService.shared.googleSign()
+	}
 	
 	
 	
