@@ -56,7 +56,7 @@ class LoginViewController: UIViewController {
 			switch result {
 				
 			case .success(let user):
-				self.showAllert(title: "Success!", message: "You are auturization") {
+				self.showAlert(title: "Success!", message: "You are auturization") {
 					FirestoreService.shared.getUserData(user: user) { result in
 						switch result {
 						case .success(let muser):
@@ -64,14 +64,14 @@ class LoginViewController: UIViewController {
 							mainTabBar.modalPresentationStyle = .fullScreen
 							self.present(mainTabBar, animated: true, completion: nil)
 						case .failure(let error):
-							self.showAllert(title: "заполните профиль", message: ""){
+							self.showAlert(title: "заполните профиль", message: ""){
 							self.present(SetupProfileViewController(currentUser: user), animated: true, completion: nil)
 							}
 						}
 					}
 				}
 			case .failure(let error):
-				self.showAllert(title: "Error", message: "\(error.localizedDescription)")
+				self.showAlert(title: "Error", message: "\(error.localizedDescription)")
 			}
 		}
 		

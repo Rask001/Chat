@@ -35,17 +35,17 @@ class AuthService {
 	
 	
 	
-	private func googleLogin(user: GIDGoogleUser!, error: Error!, completion: @escaping (Result<User,Error>) -> Void) {
+	func googleLogin(user: GIDGoogleUser!, error: Error!, completion: @escaping (Result<User,Error>) -> Void) {
 		if let error = error {
 			completion(.failure(error))
 			return
 		}
 		guard
-			let authentication = user?.authentication,
-			let idToken = authentication.idToken else { return }
+			let auth = user?.authentication,
+			let idToken = auth.idToken else { return }
 		
 		let credential = GoogleAuthProvider.credential(withIDToken: idToken,
-																									 accessToken: authentication.accessToken)
+																									 accessToken: auth.accessToken)
 		
 		Auth.auth().signIn(with: credential) { (result, error) in
 			guard let result = result else {

@@ -48,11 +48,11 @@ class SignUpViewController: UIViewController {
 			switch result {
 				
 			case .success(let user):
-				self.showAllert(title: "Success!", message: "You are registered") {
+				self.showAlert(title: "Success!", message: "You are registered") {
 					self.present(SetupProfileViewController(currentUser: user), animated: true, completion: nil)
 				}
 			case .failure(let error):
-				self.showAllert(title: "Error", message: "\(error.localizedDescription)")
+				self.showAlert(title: "Error", message: "\(error.localizedDescription)")
 			}
 		}
 	} 
@@ -131,15 +131,3 @@ struct SignUpVCProider: PreviewProvider {
 }
 
 
-
-
-extension UIViewController {
-	func showAllert(title: String, message: String, completion: @escaping()->() = {}) {
-		let allertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-		let okAction = UIAlertAction(title: "Ok", style: .default) { (_) in
-			completion()
-		}
-		allertController.addAction(okAction)
-		present(allertController, animated: true, completion: nil)
-		}
-	}

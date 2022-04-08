@@ -48,14 +48,14 @@ class SetupProfileViewController: UIViewController {
 			switch result {
 				
 			case .success(let muser):
-				self.showAllert(title: "данные сохранены!", message: "Приятного общения!") {
+				self.showAlert(title: "данные сохранены!", message: "Приятного общения!") {
 					let mainTabBar = MainTabBarController(currentUser: muser)
 					mainTabBar.modalPresentationStyle = .fullScreen
 					self.present(mainTabBar, animated: true, completion: nil)
 				}
 				
 			case .failure(let error):
-				self.showAllert(title: "error", message: error.localizedDescription)
+				self.showAlert(title: "error", message: error.localizedDescription)
 			}
 		}
 	}
@@ -107,6 +107,17 @@ extension SetupProfileViewController {
 		])
 	}
 }
+
+extension UIViewController {
+	func showAlert(title: String, message: String, completion: @escaping()->() = {}) {
+		let allertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+		let okAction = UIAlertAction(title: "Ok", style: .default) { (_) in
+			completion()
+		}
+		allertController.addAction(okAction)
+		present(allertController, animated: true, completion: nil)
+		}
+	}
 
 
 
