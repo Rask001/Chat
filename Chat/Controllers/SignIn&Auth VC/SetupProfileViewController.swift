@@ -10,7 +10,7 @@ import Firebase
 
 class SetupProfileViewController: UIViewController {
 	
-	let fillImageView = AddPhotoView()
+	let fullImageView = AddPhotoView()
 	let welcomeLabel = UILabel(text: "Setup profile", font: .avenir26())
 	
 	let fullNameLabel = UILabel(text: "Full name")
@@ -46,7 +46,7 @@ class SetupProfileViewController: UIViewController {
 		FirestoreService.shared.saveProfileWith(id: currentUser.uid,
 																						email: currentUser.email!,
 																						username: fullNameTF.text,
-																						avatagImageString: nil,
+																						avatagImage: fullImageView.circleImageView.image,
 																						description: aboutMeTF.text,
 																						sex: sexSegmentedControl.titleForSegment(at: sexSegmentedControl.selectedSegmentIndex)) { result in
 			switch result {
@@ -83,13 +83,13 @@ extension SetupProfileViewController {
 																									 goToChatsButton], axis: .vertical, spacing: 40)
 		
 		
-		view.addSubview(fillImageView)
+		view.addSubview(fullImageView)
 		view.addSubview(welcomeLabel)
 		view.addSubview(stackView)
 		
 		
 		welcomeLabel.translatesAutoresizingMaskIntoConstraints = false
-		fillImageView.translatesAutoresizingMaskIntoConstraints = false
+		fullImageView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		goToChatsButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
 		
@@ -100,12 +100,12 @@ extension SetupProfileViewController {
 		])
 		
 		NSLayoutConstraint.activate([
-			fillImageView.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 40),
-			fillImageView .centerXAnchor.constraint(equalTo: view.centerXAnchor)
+			fullImageView.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 40),
+			fullImageView .centerXAnchor.constraint(equalTo: view.centerXAnchor)
 		])
 		
 		NSLayoutConstraint.activate([
-			stackView.topAnchor.constraint(equalTo: fillImageView.bottomAnchor, constant: 40),
+			stackView.topAnchor.constraint(equalTo: fullImageView.bottomAnchor, constant: 40),
 			stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
 			stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40)
 		])

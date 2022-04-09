@@ -6,6 +6,7 @@
 //
 
 import Firebase
+import UIKit
 
 
 class FirestoreService {
@@ -32,12 +33,15 @@ class FirestoreService {
 		}
 	}
 	
-	func saveProfileWith(id: String, email: String, username: String?, avatagImageString: String?, description: String?, sex: String?, completion: @escaping (Result<MUser, Error>) -> Void) {
+	func saveProfileWith(id: String, email: String, username: String?, avatagImage: UIImage?, description: String?, sex: String?, completion: @escaping (Result<MUser, Error>) -> Void) {
 		guard Validators.isFilled(username: username, description: description, sex: sex) else {
 			completion(.failure(UserError.notFilled))
 			return
 		}
-		
+		guard avatagImage != #imageLiteral(resourceName: "avatar") else {
+			completion(.failure(UserError.photoNotExist))
+			return 
+		}
 		let muser = MUser(username: username!,
 											email: email,
 											avatarStringURL: "not exist",
