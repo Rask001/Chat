@@ -9,6 +9,7 @@ import UIKit
 
 class ChatRequestViewController: UIViewController{
 	
+	//MARK: - Properties
 	let containerView = UIView()
 	let imageView = UIImageView(image: #imageLiteral(resourceName: "human8"), contentMode: .scaleAspectFill)
 	let nameLabel = UILabel (text: "Julia Niked", font: .systemFont(ofSize: 20, weight: .bold))
@@ -16,7 +17,7 @@ class ChatRequestViewController: UIViewController{
 	let acceptButton = UIButton(backrounColor: .black, titleColor: .white, title: "ACCEPT", isShadow: false, font: .laoSangamMN20(), cornerRaadius: 10)
 	let denyButton = UIButton(backrounColor: .mainWhite(), titleColor: #colorLiteral(red: 0.8756850362, green: 0.2895075083, blue: 0.2576965988, alpha: 1), title: "Deny", isShadow: false, font: .laoSangamMN20(), cornerRaadius: 10)
 	
-	
+	//MARK: - Lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.backgroundColor = .mainWhite()

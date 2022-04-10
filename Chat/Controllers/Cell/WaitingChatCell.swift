@@ -41,8 +41,8 @@ extension WaitingChatCell {
 //MARK: - SelfConfigCellProtocol
 extension WaitingChatCell: SelfConfigCellProtocol {
 	func configure<U>(with value: U) where U : Hashable {
-		guard let user: MChat = value as? MChat else { return }
-		friendImageView.image = UIImage(named: user.userImageString)
+		guard let chat: MChat = value as? MChat else { return }
+//		friendImageView.image = UIImage(named: user.friendAvatarStringURL)
 	}
 }
 

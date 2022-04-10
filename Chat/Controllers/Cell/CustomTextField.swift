@@ -60,31 +60,5 @@ class CustomTextField: UITextField {
 	
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
-		
-	}
-}
-
-
-
-
-
-//MARK: - SWIFT UI
-import SwiftUI
-
-struct CustomTextFieldProvider: PreviewProvider {
-	static var previews: some View {
-		Group {
-			ContainerView().edgesIgnoringSafeArea(.all)
-		}
-	}
-	
-	struct ContainerView: UIViewControllerRepresentable {
-		let profileVC = ProfileViewController()
-		func makeUIViewController(context: UIViewControllerRepresentableContext<CustomTextFieldProvider.ContainerView>) -> ProfileViewController {
-			return profileVC
-		}
-		func updateUIViewController(_ uiViewController: ProfileViewController, context: Context) {
-			
-		}
 	}
 }

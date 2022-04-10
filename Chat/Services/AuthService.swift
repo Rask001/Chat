@@ -62,8 +62,7 @@ class AuthService {
 			return
 		}
 		guard let auth = user?.authentication,
-			    let idToken = auth.idToken else { return }
-		
+					let idToken = auth.idToken else { return }
 		let credential = GoogleAuthProvider.credential(withIDToken: idToken,
 																									 accessToken: auth.accessToken)
 		Auth.auth().signIn(with: credential) { (result, error) in
@@ -76,33 +75,30 @@ class AuthService {
 	}
 	
 	func googleSign(){
-	guard let clientID = FirebaseApp.app()?.options.clientID else { return }
-	let config = GIDConfiguration(clientID: clientID)
-	GIDSignIn.sharedInstance.signIn(with: config, presenting: (UIApplication.getTopViewController())!) { user, error in
-
-		
-		AuthService.shared.googleLogin(user: user, error: error) { result in
-			switch result {
-			case .success(let user):
-				FirestoreService.shared.getUserData(user: user) { result in
-					switch result {
-					case .success(let muser):
-						UIApplication.getTopViewController()?.showAlert(title: "Успешно", message: "Вы авторизованы") {
-							let mainTabBar = MainTabBarController(currentUser: muser)
-							mainTabBar.modalPresentationStyle = .fullScreen
-							UIApplication.getTopViewController()?.present(mainTabBar, animated: true, completion: nil)
-						}
-					case .failure(_):
-						UIApplication.getTopViewController()?.showAlert(title: "Успешно", message: "Вы зарегистрированны") {
-							UIApplication.getTopViewController()?.present(SetupProfileViewController(currentUser: user), animated: true, completion: nil)
-						}
-					} // result
+		guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+		let config = GIDConfiguration(clientID: clientID)
+		GIDSignIn.sharedInstance.signIn(with: config, presenting: (UIApplication.getTopViewController())!) { user, error in
+			AuthService.shared.googleLogin(user: user, error: error) { result in
+				switch result {
+				case .success(let user):
+					FirestoreService.shared.getUserData(user: user) { result in
+						switch result {
+						case .success(let muser):
+							UIApplication.getTopViewController()?.showAlert(title: "Успешно", message: "Вы авторизованы") {
+								let mainTabBar = MainTabBarController(currentUser: muser)
+								mainTabBar.modalPresentationStyle = .fullScreen
+								UIApplication.getTopViewController()?.present(mainTabBar, animated: true, completion: nil)
+							}
+						case .failure(_):
+							UIApplication.getTopViewController()?.showAlert(title: "Успешно", message: "Вы зарегистрированны") {
+								UIApplication.getTopViewController()?.present(SetupProfileViewController(currentUser: user), animated: true, completion: nil)
+							}
+						} // result
+					}
+				case .failure(let error):
+					UIApplication.getTopViewController()?.showAlert(title: "Ошибка", message: error.localizedDescription)
 				}
-			case .failure(let error):
-				UIApplication.getTopViewController()?.showAlert(title: "Ошибка", message: error.localizedDescription)
 			}
 		}
 	}
-	}
-	
 }

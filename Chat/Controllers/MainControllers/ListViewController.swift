@@ -11,9 +11,9 @@ class ListViewController: UIViewController {
 //	let activeChats = Bundle.main.decode([MChat].self, from: "activeChats.json")
 //	let waitingChats = Bundle.main.decode([MChat].self, from: "waitingChats.json")
 	
-	
-	let activeChats = reedJsonMChat(name: "activeChats")
-	let waitingChats = reedJsonMChat(name: "waitingChats")
+	//MARK: - Properties
+	let activeChats = [MChat]()
+	let waitingChats = [MChat]()
 	
 	enum Section: Int, CaseIterable {
 			case  waitingChats, activeChats
@@ -47,7 +47,7 @@ class ListViewController: UIViewController {
 	
 	
 	
-	//MARK: - ViewDidLoad
+	//MARK: - Lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupSearchBar()

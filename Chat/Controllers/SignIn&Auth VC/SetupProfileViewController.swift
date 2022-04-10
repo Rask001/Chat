@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import SDWebImage
 
 class SetupProfileViewController: UIViewController {
 	
@@ -32,7 +33,9 @@ class SetupProfileViewController: UIViewController {
 		if let username = currentUser.displayName {
 			fullNameTF.text = username
 		}
-		//потом сделать аватарку
+		if let photoURL = currentUser.photoURL {
+			fullImageView.circleImageView.sd_setImage(with: photoURL)
+		}
 	}
 	
 	required init?(coder: NSCoder) {

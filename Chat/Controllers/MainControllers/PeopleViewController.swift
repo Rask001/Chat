@@ -10,12 +10,16 @@ import Firebase
 
 class PeopleViewController: UIViewController, UISearchBarDelegate {
 	
-	let users = [MUser]()
+	//MARK: - Properties
+	var users = [MUser]()
 	var collectionView: UICollectionView!
 	var dataSource: UICollectionViewDiffableDataSource<Section,MUser>!
+	private let currentUser: MUser
+	private var usersListener: ListenerRegistration?
 	
 	enum Section: Int, CaseIterable {
 			case  users
+		
 		func description(usersCount: Int) -> String {
 			switch self {
 				case .users:
@@ -24,27 +28,44 @@ class PeopleViewController: UIViewController, UISearchBarDelegate {
 		}
 	}
 	
-	private let currentUser: MUser
-	
 	init(currentUser: MUser){
 		self.currentUser = currentUser
 		super.init(nibName: nil, bundle: nil)
 		title = currentUser.username
 	}
 	
+	deinit{
+		usersListener?.remove()
+	}
+	
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
+	//MARK: - Lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.backgroundColor = .mainWhite()
+		
 		setupSearchBar()
 		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Log out", style: .plain, target: self, action: #selector(signOut))
 		setupCollectionView()
+		usersListeners()
 		createDataSource()
-		reloadData(with: nil)
 		}
+	
+	
+	func usersListeners(){
+		usersListener = ListenerService.shared.usersObserver(users: users, completion: { result in
+			switch result {
+			case .success(let users): //обновляем информацию на экране
+				self.users = users
+				self.reloadData(with: nil)
+			case .failure(let error): //выводим ошибку
+				self.showAlert(title: "Ошибка", message: error.localizedDescription)
+			}
+		})
+	}
 	
 	@objc private func signOut() {
 		let ac = UIAlertController(title: nil, message: "уверен что хочешь выйти?", preferredStyle: .alert)
@@ -121,11 +142,12 @@ extension PeopleViewController {
 		let filtered = users.filter { (user) -> Bool in
 			user.contains(filter: searchText)
 		}
-		
+ // let sectionHeader = SectionHeader()
 	var snapshot = NSDiffableDataSourceSnapshot<Section, MUser>()
 	snapshot.appendSections([.users])
 	snapshot.appendItems(filtered , toSection: .users)  //вносимм отфильтрованный массив
-
+	//let items = self.dataSource.snapshot().itemIdentifiers(inSection: .users)
+//	sectionHeader.title.text = section.description(usersCount: items.count)
 	dataSource?.apply(snapshot, animatingDifferences: true)
 }
 }
@@ -145,7 +167,6 @@ extension PeopleViewController {
 			}
 			switch section {
 			case .users:
-
 				return self.config(collectionView: collectionView, cellType: UserCell.self, with: user, for: indexPath)
 			}
 		})
@@ -156,12 +177,12 @@ extension PeopleViewController {
 				fatalError("Can not create new section header") }
 			guard let section = Section(rawValue: indexPath.section) else {
 				fatalError("Unknow section kind") }
-			let items = self.dataSource.snapshot().itemIdentifiers(inSection: .users) //находим через снэпшот и датусорс пользователей, дажее ниже извлекаем количество
+			let items = self.dataSource.snapshot().itemIdentifiers(inSection: .users) //находим через снэпшот и датусорс пользователей, далее ниже извлекаем количество
 			sectionHeader.configure(text: section.description(usersCount: items.count),
 															font: .systemFont(ofSize: 36, weight: .light),
 															textColor: .label)
 							return sectionHeader
-			}
+		}
 	}
 }
 
@@ -178,6 +199,17 @@ private func setupCollectionView() {
 	collectionView.register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeader.reuseId)
 
 	collectionView.register(UserCell.self, forCellWithReuseIdentifier: UserCell.reuseId)
+	collectionView.delegate = self
+	}
+}
+
+
+//MARK: - UICollectionViewDelegate
+extension PeopleViewController: UICollectionViewDelegate {
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		guard let user = self.dataSource.itemIdentifier(for: indexPath) else { return }
+		let profileVC = ProfileViewController(user: user)
+		present(profileVC, animated: true, completion: nil)
 	}
 }
 

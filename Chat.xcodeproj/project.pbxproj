@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A053902280361A70034846E /* MMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A053901280361A70034846E /* MMessage.swift */; };
 		3A18A65727F9A6E400D3B623 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A18A65627F9A6E400D3B623 /* UserCell.swift */; };
 		3A18A65927F9A99800D3B623 /* UIViewController + extansion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A18A65827F9A99800D3B623 /* UIViewController + extansion.swift */; };
+		3A2AB6712803292D00D7FC33 /* ListenerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2AB6702803292D00D7FC33 /* ListenerService.swift */; };
 		3A3181E127FABF4A00E324E5 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3181E027FABF4A00E324E5 /* AuthService.swift */; };
 		3A3181E327FB6E0C00E324E5 /* Validators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3181E227FB6E0C00E324E5 /* Validators.swift */; };
 		3A3181E527FB71CB00E324E5 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3181E427FB71CB00E324E5 /* AuthError.swift */; };
@@ -60,8 +62,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A053901280361A70034846E /* MMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMessage.swift; sourceTree = "<group>"; };
 		3A18A65627F9A6E400D3B623 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		3A18A65827F9A99800D3B623 /* UIViewController + extansion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + extansion.swift"; sourceTree = "<group>"; };
+		3A2AB6702803292D00D7FC33 /* ListenerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListenerService.swift; sourceTree = "<group>"; };
 		3A3181E027FABF4A00E324E5 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		3A3181E227FB6E0C00E324E5 /* Validators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validators.swift; sourceTree = "<group>"; };
 		3A3181E427FB71CB00E324E5 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
@@ -155,6 +159,7 @@
 				3A3181E027FABF4A00E324E5 /* AuthService.swift */,
 				3A3181E827FB932700E324E5 /* FirestoreService.swift */,
 				3AD272322802188C0019B373 /* StorageService.swift */,
+				3A2AB6702803292D00D7FC33 /* ListenerService.swift */,
 				3A3181E227FB6E0C00E324E5 /* Validators.swift */,
 				3A3181E427FB71CB00E324E5 /* AuthError.swift */,
 				3A5128B027FCCE49001F71E6 /* UserError.swift */,
@@ -168,6 +173,7 @@
 			children = (
 				3AF7C92D27F85A690038B152 /* MChat.swift */,
 				3A9BCAB727F98B3300C64A12 /* MUser.swift */,
+				3A053901280361A70034846E /* MMessage.swift */,
 				3A9BCAB927F98B9800C64A12 /* ReadJson.swift */,
 				3A9BCAB527F98A0700C64A12 /* users.json */,
 				3A49FC4227F82EF7009C5CB6 /* activeChats.json */,
@@ -437,6 +443,7 @@
 				3AF9C7F427F23CF900197244 /* AppDelegate.swift in Sources */,
 				3AD27235280225310019B373 /* UIImage + extension.swift in Sources */,
 				3A3181E327FB6E0C00E324E5 /* Validators.swift in Sources */,
+				3A2AB6712803292D00D7FC33 /* ListenerService.swift in Sources */,
 				3AF9C81027F2527300197244 /* UILabel + extension.swift in Sources */,
 				3A5CE5D827F5074200669AC4 /* AddPhotoView.swift in Sources */,
 				3A18A65927F9A99800D3B623 /* UIViewController + extansion.swift in Sources */,
@@ -457,6 +464,7 @@
 				3A92E10827FA260100634B1F /* CustomTextField.swift in Sources */,
 				3AF9C81E27F3A76600197244 /* LoginViewController.swift in Sources */,
 				3A49FC3827F6397A009C5CB6 /* ListViewController.swift in Sources */,
+				3A053902280361A70034846E /* MMessage.swift in Sources */,
 				3A9BCABA27F98B9800C64A12 /* ReadJson.swift in Sources */,
 				3A9BCAB827F98B3300C64A12 /* MUser.swift in Sources */,
 				3A3181E127FABF4A00E324E5 /* AuthService.swift in Sources */,
