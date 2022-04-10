@@ -8,7 +8,7 @@
 import Foundation
 
 
-protocol AuthNavigationDelegateProtocol: class {
+protocol AuthNavigationDelegateProtocol: AnyObject {
 	func toLoginVC()
 	func toSingUpVC()
 }

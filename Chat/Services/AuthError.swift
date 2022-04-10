@@ -7,6 +7,7 @@
 
 import Foundation
 
+//MARK: - различные ошибки связанные с заполнением полей
 enum AuthError {
 	case notFilled
 	case invalidEmail

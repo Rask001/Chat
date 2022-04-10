@@ -9,20 +9,20 @@ import UIKit
 import Firebase
 import GoogleSignIn
 
+
 class AuthService {
 	
+	//MARK: - Properties
 	static let shared = AuthService() 
 	private let auth = Auth.auth()
 	
-	
+	//MARK: - Methods
+	//MARK: - Sing in with Email
 	func login(email: String?, password: String?, completion: @escaping (Result<User,Error>)->Void) {
-		
 		guard let email = email, let password = password else {
 			completion(.failure(AuthError.notFilled))
 			return
 		}
-
-		
 		auth.signIn(withEmail: email, password: password) { (result, error) in
 			guard let result = result else {
 				completion(.failure(error!))
@@ -32,21 +32,40 @@ class AuthService {
 		}
 	}
 	
+	//MARK: - Registation form with Email
+	func register(email: String?, password: String?, confirmPassword: String?, completion: @escaping (Result<User,Error>)->Void){
+		guard Validators.isFilled(email: email, password: password, confirmPassword: confirmPassword) else {
+			completion(.failure(AuthError.notFilled))
+			return
+		}
+		guard password!.lowercased() == confirmPassword!.lowercased() else {
+			completion(.failure(AuthError.passwordNotMatched))
+			return
+		}
+		guard Validators.isSimpleEmail(email!) else {
+			completion(.failure(AuthError.invalidEmail))
+			return
+		}
+		auth.createUser(withEmail: email!, password: password!) { result, error in
+			guard let result = result else {
+				completion(.failure(error!))
+				return
+			}
+			completion(.success(result.user))
+		}
+	}
 	
-	
-	
+	//MARK: - Sing in with Google
 	func googleLogin(user: GIDGoogleUser!, error: Error!, completion: @escaping (Result<User,Error>) -> Void) {
 		if let error = error {
 			completion(.failure(error))
 			return
 		}
-		guard
-			let auth = user?.authentication,
-			let idToken = auth.idToken else { return }
+		guard let auth = user?.authentication,
+			    let idToken = auth.idToken else { return }
 		
 		let credential = GoogleAuthProvider.credential(withIDToken: idToken,
 																									 accessToken: auth.accessToken)
-		
 		Auth.auth().signIn(with: credential) { (result, error) in
 			guard let result = result else {
 				completion(.failure(error!))
@@ -55,20 +74,17 @@ class AuthService {
 			completion(.success(result.user))
 		}
 	}
+	
 	func googleSign(){
 	guard let clientID = FirebaseApp.app()?.options.clientID else { return }
 	let config = GIDConfiguration(clientID: clientID)
-	GIDSignIn.sharedInstance.signIn(with: config, presenting: (UIApplication.getTopViewController())!) { [unowned self] user, error in
+	GIDSignIn.sharedInstance.signIn(with: config, presenting: (UIApplication.getTopViewController())!) { user, error in
+
 		
-		guard let authentication = user?.authentication,
-					let idToken = authentication.idToken else { return }
-		
-		let credential = GoogleAuthProvider.credential(withIDToken: idToken,
-																									 accessToken: authentication.accessToken)
-		AuthService.shared.googleLogin(user: user, error: error) { (result) in
+		AuthService.shared.googleLogin(user: user, error: error) { result in
 			switch result {
 			case .success(let user):
-				FirestoreService.shared.getUserData(user: user) { (result) in
+				FirestoreService.shared.getUserData(user: user) { result in
 					switch result {
 					case .success(let muser):
 						UIApplication.getTopViewController()?.showAlert(title: "Успешно", message: "Вы авторизованы") {
@@ -87,34 +103,6 @@ class AuthService {
 			}
 		}
 	}
-	}
-	
-	
-	
-	
-	func register(email: String?, password: String?, confirmPassword: String?, completion: @escaping (Result<User,Error>)->Void){
-		
-		guard Validators.isFilled(email: email, password: password, confirmPassword: confirmPassword) else {
-			completion(.failure(AuthError.notFilled))
-			return
-		}
-		guard password!.lowercased() == confirmPassword!.lowercased() else {
-			completion(.failure(AuthError.passwordNotMatched))
-			return
-		}
-		guard Validators.isSimpleEmail(email!) else {
-			completion(.failure(AuthError.invalidEmail))
-			return
-		}
-		
-		auth.createUser(withEmail: email!, password: password!) { (result, error) in
-			guard let result = result else {
-				completion(.failure(error!))
-				return
-			}
-			
-			completion(.success(result.user))
-		}
 	}
 	
 }

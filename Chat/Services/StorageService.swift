@@ -8,17 +8,20 @@
 import Foundation
 import Firebase
 
+//MARK: - Upload photo to Firestore
 class StorageService {
+	
+//MARK: - Properties
 	static let shared = StorageService()
 	let storageRef = Storage.storage().reference()
 	private var avatarsRef: StorageReference {
 		return storageRef.child("avatars")
 	}
-	
 	private var currentUserId: String {
 		return Auth.auth().currentUser!.uid
 	}
 	
+	//MARK: - Methods
 	func upload(photo: UIImage, completion: @escaping (Result<URL,Error>) -> Void) {
 		guard let scaledImage = photo.scaledToSafeUploadSize, let imageData = scaledImage.jpegData(compressionQuality: 0.4) else { return }
 		let metaData = StorageMetadata()

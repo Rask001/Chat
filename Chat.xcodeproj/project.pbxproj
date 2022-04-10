@@ -137,15 +137,27 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		3A2AB66F2802F73A00D7FC33 /* MainControllers */ = {
+			isa = PBXGroup;
+			children = (
+				3A49FC3527F638FB009C5CB6 /* MainTabBarController.swift */,
+				3A92E10527FA1A7400634B1F /* ProfileViewController.swift */,
+				3A49FC3727F6397A009C5CB6 /* ListViewController.swift */,
+				3ABDC52C27FA4217000D8A28 /* ChatRequestViewController.swift */,
+				3A49FC3927F63995009C5CB6 /* PeopleViewController.swift */,
+			);
+			path = MainControllers;
+			sourceTree = "<group>";
+		};
 		3A3181DF27FABF1200E324E5 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				3A3181E027FABF4A00E324E5 /* AuthService.swift */,
 				3A3181E827FB932700E324E5 /* FirestoreService.swift */,
-				3A3181E427FB71CB00E324E5 /* AuthError.swift */,
 				3AD272322802188C0019B373 /* StorageService.swift */,
-				3A5128B027FCCE49001F71E6 /* UserError.swift */,
 				3A3181E227FB6E0C00E324E5 /* Validators.swift */,
+				3A3181E427FB71CB00E324E5 /* AuthError.swift */,
+				3A5128B027FCCE49001F71E6 /* UserError.swift */,
 				3A3B9A7027F903A000D7AA21 /* Model */,
 			);
 			path = Services;
@@ -191,14 +203,10 @@
 		3A49FC3B27F63A75009C5CB6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3A2AB66F2802F73A00D7FC33 /* MainControllers */,
 				3A49FC3427F63888009C5CB6 /* SignIn&Auth VC */,
 				3A9BCAB427F981D600C64A12 /* SectionHeader */,
 				3A9BCAA927F908C600C64A12 /* Cell */,
-				3A49FC3527F638FB009C5CB6 /* MainTabBarController.swift */,
-				3A92E10527FA1A7400634B1F /* ProfileViewController.swift */,
-				3A49FC3727F6397A009C5CB6 /* ListViewController.swift */,
-				3ABDC52C27FA4217000D8A28 /* ChatRequestViewController.swift */,
-				3A49FC3927F63995009C5CB6 /* PeopleViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

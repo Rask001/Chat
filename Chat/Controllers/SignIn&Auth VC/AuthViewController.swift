@@ -10,23 +10,24 @@ import Firebase
 import GoogleSignIn
 
 class AuthViewController: UIViewController {
+	//MARK: - Properties
 	
+	//labels
 	let logoImageView = UIImageView(image: #imageLiteral(resourceName: "Logo"), contentMode: .scaleAspectFit)
-	
 	let googleLabel = UILabel(text: "Get started with")
 	let emailLabel = UILabel(text: "Or sign up with")
 	let aladyOnboardLabel = UILabel(text: "Already onboard?")
 	
-
+	//buttons
 	let emailButton = UIButton(backrounColor: .buttonDark(), titleColor: .white, title: "Email")
 	let loginButton = UIButton(backrounColor: .white, titleColor: .buttonRed(), title: "Login", isShadow: true)
 	let googleButton = UIButton(backrounColor: .white, titleColor: .black, title: "Google", isShadow: true)
 	let signUpVC = SignUpViewController()
 	let loginVC = LoginViewController()
 	
+	//MARK: - Lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.view.backgroundColor = .white
 		setupConstraints()
 		googleButton.customizeGoogleButton()
 		emailButton.addTarget(self, action: #selector(emailButtonTapped), for: .touchUpInside)
@@ -36,6 +37,7 @@ class AuthViewController: UIViewController {
 		loginVC.delegate = self
 	}
 	
+	//MARK: - Methods
 	@objc private func emailButtonTapped() {
 		present(signUpVC, animated: true, completion: nil)
 	}
@@ -49,33 +51,23 @@ class AuthViewController: UIViewController {
 	}
 }
 			
-			
-			
-
-
-
-
-
-
-
-
-
-
 //MARK: - Setup constraints
-
 extension AuthViewController {
 	private func setupConstraints() {
-		logoImageView.translatesAutoresizingMaskIntoConstraints = false
-		self.view.addSubview(logoImageView)
+		
+		//properties
 		let googleView = ButtonFormView(label: googleLabel, button: googleButton)
 		let emailView = ButtonFormView(label: emailLabel, button: emailButton)
 		let loginView = ButtonFormView(label: aladyOnboardLabel, button: loginButton)
+		let stackView = UIStackView(arrangedSubviews: [googleView,
+																									 emailView,
+																									 loginView], axis: .vertical, spacing: 40)
 		
-		let stackView = UIStackView(arrangedSubviews: [googleView, emailView, loginView], axis: .vertical, spacing: 40)
-		stackView.translatesAutoresizingMaskIntoConstraints = false
-		
+		self.view.backgroundColor = .white
 		self.view.addSubview(logoImageView)
 		self.view.addSubview(stackView)
+		logoImageView.translatesAutoresizingMaskIntoConstraints = false
+		stackView.translatesAutoresizingMaskIntoConstraints = false
 		
 		NSLayoutConstraint.activate([
 		logoImageView.topAnchor.constraint(equalTo: self.view.topAnchor, constant:  160),
@@ -90,7 +82,7 @@ extension AuthViewController {
 	}
 }
 
-
+//MARK: - Protocols
 extension AuthViewController: AuthNavigationDelegateProtocol {
 	func toLoginVC() {
 		present(loginVC, animated: true, completion: nil)
@@ -100,9 +92,6 @@ extension AuthViewController: AuthNavigationDelegateProtocol {
 		present(signUpVC, animated: true, completion: nil)
 	}
 }
-
-
-
 
 
 //MARK: - SWIFT UI

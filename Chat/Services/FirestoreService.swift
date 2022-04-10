@@ -11,13 +11,14 @@ import UIKit
 
 class FirestoreService {
 	
+	//MARK: - Properties
 	static let shared = FirestoreService()
 	let db = Firestore.firestore()
-	
 	private var usersRef: CollectionReference {
 		return db.collection("users")
 	}
 	
+	//MARK: - Methods
 	func getUserData(user: User, completion: @escaping (Result<MUser, Error>) -> Void) {
 		let docRef = usersRef.document(user.uid)
 		docRef.getDocument { document, error in
@@ -50,7 +51,6 @@ class FirestoreService {
 											id: id)
 		StorageService.shared.upload(photo: avatagImage!) { result in
 			switch result {
-				
 			case .success(let url):
 				muser.avatarStringURL = url.absoluteString
 				self.usersRef.document(muser.id).setData(muser.representation) { error in

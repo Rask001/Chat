@@ -10,13 +10,16 @@ import Firebase
 
 class SetupProfileViewController: UIViewController {
 	
+	
+	//MARK: - Properties
+	//labels
 	let fullImageView = AddPhotoView()
 	let welcomeLabel = UILabel(text: "Setup profile", font: .avenir26())
-	
 	let fullNameLabel = UILabel(text: "Full name")
 	let aboutMeLabel = UILabel(text: "About me")
 	let sexLabel = UILabel(text: "sex")
 	
+	//others
 	let fullNameTF = OneLineTextField(font: .avenir20())
 	let aboutMeTF = OneLineTextField(font: .avenir20())
 	let sexSegmentedControl = UISegmentedControl(first: "Male", second: "Female")
@@ -36,11 +39,21 @@ class SetupProfileViewController: UIViewController {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
+	
+	//MARK: - Lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupConstraints()
+		buttonTargetsAndDelegate()
+		
+	}
+	
+	//MARK: - Methods
+	private func buttonTargetsAndDelegate(){
 		goToChatsButton.addTarget(self, action: #selector(goToChatsButtonTapped), for: .touchUpInside)
 		fullImageView.plusButton.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
+		self.fullNameTF.delegate = self
+		self.aboutMeTF.delegate = self
 	}
 	
 	@objc private func plusButtonTapped() {
@@ -58,49 +71,54 @@ class SetupProfileViewController: UIViewController {
 																						description: aboutMeTF.text,
 																						sex: sexSegmentedControl.titleForSegment(at: sexSegmentedControl.selectedSegmentIndex)) { result in
 			switch result {
-				
 			case .success(let muser):
 				self.showAlert(title: "данные сохранены!", message: "Приятного общения!") {
 					let mainTabBar = MainTabBarController(currentUser: muser)
 					mainTabBar.modalPresentationStyle = .fullScreen
 					self.present(mainTabBar, animated: true, completion: nil)
 				}
-				
 			case .failure(let error):
 				self.showAlert(title: "error", message: error.localizedDescription)
 			}
 		}
 	}
-	
+}
+
+
+//MARK: - extensions
+extension SetupProfileViewController: UITextFieldDelegate {
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		self.view.endEditing(true)
+		return false
+	}
 }
 
 
 //MARK: - Setup constraints
 extension SetupProfileViewController {
 	private func setupConstraints() {
-		self.view.backgroundColor = .white
 		
-		let fullImageStackView = UIStackView(arrangedSubviews: [fullNameLabel, fullNameTF], axis: .vertical, spacing: 0)
-		let aboutMeStackView = UIStackView(arrangedSubviews: [aboutMeLabel, aboutMeTF], axis: .vertical, spacing: 0)
-		let sexStackView = UIStackView(arrangedSubviews: [sexLabel, sexSegmentedControl], axis: .vertical, spacing: 12)
-		
+		let fullImageStackView = UIStackView(arrangedSubviews: [fullNameLabel,
+																														fullNameTF], axis: .vertical, spacing: 0)
+		let aboutMeStackView = UIStackView(arrangedSubviews: [aboutMeLabel,
+																													aboutMeTF], axis: .vertical, spacing: 0)
+		let sexStackView = UIStackView(arrangedSubviews: [sexLabel,
+																											sexSegmentedControl], axis: .vertical, spacing: 12)
 		
 		let stackView = UIStackView(arrangedSubviews: [fullImageStackView,
 																									 aboutMeStackView,
 																									 sexStackView,
 																									 goToChatsButton], axis: .vertical, spacing: 40)
 		
-		
 		view.addSubview(fullImageView)
 		view.addSubview(welcomeLabel)
 		view.addSubview(stackView)
 		
-		
+		self.view.backgroundColor = .white
 		welcomeLabel.translatesAutoresizingMaskIntoConstraints = false
 		fullImageView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		goToChatsButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-		
 		
 		NSLayoutConstraint.activate([
 			welcomeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -128,19 +146,16 @@ extension UIViewController {
 		}
 		allertController.addAction(okAction)
 		present(allertController, animated: true, completion: nil)
-		}
 	}
-
+}
 
 extension SetupProfileViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate{
 	func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-		
 		picker.dismiss(animated: true, completion: nil)
 		guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
 		fullImageView.circleImageView.image = image
 	}
 }
-
 
 
 //MARK: - SWIFT UI
@@ -159,7 +174,6 @@ struct SetupProfileVCProider: PreviewProvider {
 			return SetupProfileVC
 		}
 		func updateUIViewController(_ uiViewController: SetupProfileViewController, context: Context) {
-			
 		}
 	}
 }

@@ -7,6 +7,8 @@
 
 import Foundation
 
+//MARK: - различные ошибки связанные с пользователем
+
 enum UserError {
 	case notFilled
 	case photoNotExist

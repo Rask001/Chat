@@ -12,7 +12,7 @@ class OneLineTextField: UITextField {
 		self.init()
 		self.font = font
 		self.borderStyle = .none
-		
+		self.resignFirstResponder()
 		self.translatesAutoresizingMaskIntoConstraints = false
 		
 		var bottomView = UIView()
@@ -28,4 +28,5 @@ class OneLineTextField: UITextField {
 		bottomView.heightAnchor.constraint(equalToConstant: 1)
 		])
 	}
+	
 }

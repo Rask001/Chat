@@ -52,7 +52,7 @@ class PeopleViewController: UIViewController, UISearchBarDelegate {
 		ac.addAction(UIAlertAction(title: "sign out", style: .destructive, handler: { _ in
 			do {
 				try Auth.auth().signOut()
-					UIApplication.shared.keyWindow?.rootViewController = AuthViewController()
+				UIApplication.shared.keyWindow?.rootViewController = AuthViewController()
 			} catch {
 				print("error signIng out: \(error.localizedDescription)")
 			}

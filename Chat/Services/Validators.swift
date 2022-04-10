@@ -7,7 +7,10 @@
 
 import UIKit
 
+//MARK: - Проверка на полноту введенных данных в текстФилды. / Checking for completeness of the entered data
+
 class Validators {
+	//for SignUpViewController
 	static func isFilled(email: String?, password: String?, confirmPassword: String?) -> Bool {
 		  guard let password = password,
 						let confirmPassword = confirmPassword,
@@ -19,7 +22,7 @@ class Validators {
 			}
 		return true
 	}
-	
+	//for SetupProfileViewController
 	static func isFilled(username: String?, description: String?, sex: String?) -> Bool {
 			guard let description = description,
 						let sex = sex,
@@ -31,13 +34,11 @@ class Validators {
 			}
 		return true
 	}
-	
-	// ниже проверка почты
+	// проверка на корректность введенной почты
 	static func isSimpleEmail(_ email: String) -> Bool {
 			let emailRegEx = "^.+@.+\\..{2,}$"
 			return check(text: email, regEx: emailRegEx)
 	}
-	
 	private static func check(text: String, regEx: String) -> Bool {
 			let predicate = NSPredicate(format: "SELF MATCHES %@", regEx)
 			return predicate.evaluate(with: text)
