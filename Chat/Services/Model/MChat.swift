@@ -5,6 +5,7 @@
 //  Created by Антон on 02.04.2022.
 //
 import Foundation
+import Firebase
 
 struct MChat: Hashable, Decodable {
 	var friendUserName: String
@@ -19,6 +20,27 @@ struct MChat: Hashable, Decodable {
 		rep["friendId"] = friendId
 		return rep
 	}
+	
+	init?(friendUserName: String, friendAvatarStringURL: String, lastMessageContent: String, friendId: String) {
+		self.friendUserName = friendUserName
+		self.friendId = friendId
+		self.lastMessageContent = lastMessageContent
+		self.friendAvatarStringURL = friendAvatarStringURL
+	}
+	
+	init?(document: QueryDocumentSnapshot){
+		let data = document.data()
+		guard let friendUserName = data["frientUserName"] as? String,
+					let friendId = data["friendId"] as? String,
+					let lastMessageContent = data["lastMessage"] as? String,
+					let friendAvatarStringURL = data["friendAvatarStringURL"] as? String else { return nil }
+		
+		self.friendUserName = friendUserName
+		self.friendId = friendId
+		self.lastMessageContent = lastMessageContent
+		self.friendAvatarStringURL = friendAvatarStringURL
+	}
+	
 	
 	func hash(into hasher: inout Hasher) {
 		hasher.combine(friendId)

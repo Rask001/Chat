@@ -16,6 +16,19 @@ class ChatRequestViewController: UIViewController{
 	let aboutMeLabel = UILabel (text: "You have to opportunity to start a new chat", font: .systemFont(ofSize: 16, weight: .light))
 	let acceptButton = UIButton(backrounColor: .black, titleColor: .white, title: "ACCEPT", isShadow: false, font: .laoSangamMN20(), cornerRaadius: 10)
 	let denyButton = UIButton(backrounColor: .mainWhite(), titleColor: #colorLiteral(red: 0.8756850362, green: 0.2895075083, blue: 0.2576965988, alpha: 1), title: "Deny", isShadow: false, font: .laoSangamMN20(), cornerRaadius: 10)
+	private var chat: MChat
+	var delegate: WaitingChatNavigationsProtocol?
+	
+	init(chat: MChat) {
+		self.chat = chat
+		nameLabel.text = chat.friendUserName
+		imageView.sd_setImage(with: URL(string: chat.friendAvatarStringURL))
+		super.init(nibName: nil, bundle: nil)
+	}
+	
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 	
 	//MARK: - Lifecycle
 	override func viewDidLoad() {
@@ -23,6 +36,20 @@ class ChatRequestViewController: UIViewController{
 		view.backgroundColor = .mainWhite()
 		customixeElements()
 		setupConstraints()
+		denyButton.addTarget(self, action: #selector(denyButtonTapped), for: .touchUpInside)
+		acceptButton.addTarget(self, action: #selector(acceptButtonTapped), for: .touchUpInside)
+	}
+	
+	@objc private func denyButtonTapped() {
+		self.dismiss(animated: true) {
+			self.delegate?.removeWaitingChat(chat: self.chat)
+		}
+	}
+	
+	@objc private func acceptButtonTapped() {
+		self.dismiss(animated: true) {
+			self.delegate?.changeToActive(chat: self.chat)
+		}
 	}
 	
 	override func viewDidLayoutSubviews() {
@@ -88,30 +115,3 @@ extension ChatRequestViewController {
 	}
 }
 
-
-
-
-
-
-
-
-//MARK: - SWIFT UI
-import SwiftUI
-
-struct ChatRequestVCProvider: PreviewProvider {
-	static var previews: some View {
-		Group {
-			ContainerView().edgesIgnoringSafeArea(.all)
-		}
-	}
-	
-	struct ContainerView: UIViewControllerRepresentable {
-		let ChatRequestVC = ChatRequestViewController()
-		func makeUIViewController(context: UIViewControllerRepresentableContext<ChatRequestVCProvider.ContainerView>) -> ChatRequestViewController {
-			return ChatRequestVC
-		}
-		func updateUIViewController(_ uiViewController: ChatRequestViewController , context: Context) {
-			
-		}
-	}
-}
