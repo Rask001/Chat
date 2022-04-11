@@ -46,7 +46,7 @@ class ListenerService {
 		}
 		return usersListener
 	}
-	
+	//наблюдатель за ожидающими чатами
 	func waitingChatsObserver(chats: [MChat], completion: @escaping (Result<[MChat],Error>) -> Void) -> ListenerRegistration? {
 		var chats = chats
 		let chatRef = db.collection(["users", currentUserId, "waitingChats"].joined(separator: "/"))
@@ -74,7 +74,7 @@ class ListenerService {
 		}
 		return chatsListener
 	}
-	
+	//наблюдатель за активными чатами
 	func activeChatsObserver(chats: [MChat], completion: @escaping (Result<[MChat],Error>) -> Void) -> ListenerRegistration? {
 		var chats = chats
 		let chatRef = db.collection(["users", currentUserId, "activeChats"].joined(separator: "/"))

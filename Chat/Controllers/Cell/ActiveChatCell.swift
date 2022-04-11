@@ -9,8 +9,8 @@ import UIKit
 
 //MARK: - ActiveChatCell
 class ActiveChatCell: UICollectionViewCell {
+//MARK: - Properties
 	static var reuseId: String = "ActiveChatCell"
-	
 	let friendImageView = UIImageView()
 	let friendName = UILabel(text: "User name", font: .laoSangamMN20())
 	let lastMessage = UILabel(text: "How are you? ", font: .laoSangamMN18())
@@ -21,6 +21,7 @@ class ActiveChatCell: UICollectionViewCell {
 		setupConstraints()
 	}
 	
+	//заполняем ячейку контентом
 	func configure<U>(with value: U) where U : Hashable {
 			guard let chat: MChat = value as? MChat else { return }
 			friendName.text = chat.friendUserName
@@ -45,20 +46,20 @@ extension ActiveChatCell {
 		gradientVew.translatesAutoresizingMaskIntoConstraints = false
 		lastMessage.translatesAutoresizingMaskIntoConstraints = false
 		friendName.translatesAutoresizingMaskIntoConstraints = false
-		
+		friendImageView.layer.cornerRadius = 35
+		friendImageView.clipsToBounds = true
 		friendImageView.backgroundColor = .systemYellow
-		
 		self.addSubview(friendImageView)
 		self.addSubview(gradientVew)
 		self.addSubview(friendName)
 		self.addSubview(lastMessage)
 		NSLayoutConstraint.activate([
-			friendImageView.widthAnchor.constraint(equalToConstant: 78),
-			friendImageView.heightAnchor.constraint(equalToConstant: 78),
+			friendImageView.widthAnchor.constraint(equalToConstant: 70),
+			friendImageView.heightAnchor.constraint(equalToConstant: 70),
 			friendImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-			friendImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0)
+			friendImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 4)
 		])
-		
+
 		NSLayoutConstraint.activate([
 			gradientVew.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),
 			gradientVew.centerYAnchor.constraint(equalTo: self.centerYAnchor),
