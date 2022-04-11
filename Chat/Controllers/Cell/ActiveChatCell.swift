@@ -21,6 +21,13 @@ class ActiveChatCell: UICollectionViewCell {
 		setupConstraints()
 	}
 	
+	func configure<U>(with value: U) where U : Hashable {
+			guard let chat: MChat = value as? MChat else { return }
+			friendName.text = chat.friendUserName
+			lastMessage.text = chat.lastMessageContent
+			friendImageView.sd_setImage(with: URL(string: chat.friendAvatarStringURL), completed: nil)
+	}
+	
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
@@ -75,16 +82,9 @@ extension ActiveChatCell {
 
 //MARK: - Self configuring cell
 extension ActiveChatCell: SelfConfigCellProtocol {
-	
-	func configure<U>(with value: U) where U : Hashable {
-		guard let chat: MChat = value as? MChat else { return }
-//		friendImageView.image = UIImage(named: chat.friendAvatarStringURL)
-//		friendName.text = chat.friendUserName
-//		lastMessage.text = chat.lastMessageContent
-	}
+
 }
-	
-	
+	 
 
 
 

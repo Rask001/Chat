@@ -67,7 +67,6 @@ struct MUser: Hashable, Decodable {
 		rep["description"] = description
 		rep["uid"] = id
 		return rep
-		
 	}
 	
 	func hash(into hasher: inout Hasher) {
