@@ -25,6 +25,7 @@
 		3A5CE5D627F5044300669AC4 /* SetupProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5CE5D527F5044300669AC4 /* SetupProfileViewController.swift */; };
 		3A5CE5D827F5074200669AC4 /* AddPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5CE5D727F5074200669AC4 /* AddPhotoView.swift */; };
 		3A5CE5DA27F5102000669AC4 /* SegmentedControl + extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5CE5D927F5102000669AC4 /* SegmentedControl + extention.swift */; };
+		3A7FF8BB2805F2EB00C02319 /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7FF8BA2805F2EB00C02319 /* ChatsViewController.swift */; };
 		3A92E10627FA1A7400634B1F /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A92E10527FA1A7400634B1F /* ProfileViewController.swift */; };
 		3A92E10827FA260100634B1F /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A92E10727FA260100634B1F /* CustomTextField.swift */; };
 		3A9BCAA827F908AF00C64A12 /* ActiveChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9BCAA727F908AF00C64A12 /* ActiveChatCell.swift */; };
@@ -82,6 +83,7 @@
 		3A5CE5D527F5044300669AC4 /* SetupProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupProfileViewController.swift; sourceTree = "<group>"; };
 		3A5CE5D727F5074200669AC4 /* AddPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoView.swift; sourceTree = "<group>"; };
 		3A5CE5D927F5102000669AC4 /* SegmentedControl + extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SegmentedControl + extention.swift"; sourceTree = "<group>"; };
+		3A7FF8BA2805F2EB00C02319 /* ChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
 		3A92E10527FA1A7400634B1F /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		3A92E10727FA260100634B1F /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		3A9BCAA727F908AF00C64A12 /* ActiveChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveChatCell.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 			children = (
 				3A49FC3527F638FB009C5CB6 /* MainTabBarController.swift */,
 				3A92E10527FA1A7400634B1F /* ProfileViewController.swift */,
+				3A7FF8BA2805F2EB00C02319 /* ChatsViewController.swift */,
 				3A49FC3727F6397A009C5CB6 /* ListViewController.swift */,
 				3ABDC52C27FA4217000D8A28 /* ChatRequestViewController.swift */,
 				3A49FC3927F63995009C5CB6 /* PeopleViewController.swift */,
@@ -446,6 +449,7 @@
 				3AF9C7F427F23CF900197244 /* AppDelegate.swift in Sources */,
 				3AD27235280225310019B373 /* UIImage + extension.swift in Sources */,
 				3A3181E327FB6E0C00E324E5 /* Validators.swift in Sources */,
+				3A7FF8BB2805F2EB00C02319 /* ChatsViewController.swift in Sources */,
 				3AD899F728037FC30004FF33 /* WaitingChatNavigations.swift in Sources */,
 				3A2AB6712803292D00D7FC33 /* ListenerService.swift in Sources */,
 				3AF9C81027F2527300197244 /* UILabel + extension.swift in Sources */,
