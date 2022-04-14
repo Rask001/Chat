@@ -62,3 +62,10 @@ struct MMessage: Hashable, MessageType { //подписав модель под 
 		return lhs.messageId == rhs.messageId
 	}
 }
+
+extension MMessage: Comparable {
+	static func < (lhs: MMessage, rhs: MMessage) -> Bool {
+		return lhs.sentDate < rhs.sentDate
+	}
+	
+}
