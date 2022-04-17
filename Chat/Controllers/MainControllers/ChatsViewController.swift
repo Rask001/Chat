@@ -36,7 +36,7 @@ class ChatsViewController: MessagesViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		if let layout = messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout {
-			layout.textMessageSizeCalculator.outgoingAvatarSize = .zero 
+			layout.textMessageSizeCalculator.outgoingAvatarSize = .zero //убрать расстояние отсутствуюшей аватарки отправителя (для собеседника использовать свойство incomingAvatarSize)
 		}
 		messagesCollectionView.backgroundColor = .mainWhite()
 		configureMessageInputBar()
@@ -87,6 +87,8 @@ extension ChatsViewController: MessagesLayoutDelegate {
 	}
 }
 
+
+//MARK: - MessagesDisplayDelegate
 extension ChatsViewController: MessagesDisplayDelegate {
 	//красим фон сообщения
 	func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {

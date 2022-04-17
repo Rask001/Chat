@@ -18,6 +18,7 @@ struct MMessage: Hashable, MessageType { //подписав модель под 
 	var messageId: String {
 		return id ?? UUID().uuidString
 	}
+	
 	var kind: MessageKind {
 		return .text(content)
 	}

@@ -10,7 +10,7 @@ import Firebase
 struct MChat: Hashable, Decodable {
 	var friendUserName: String
 	var friendAvatarStringURL: String
-	var lastMessageContent : String?
+	var lastMessageContent : String
 	var friendId: String
 
 	var representation: [String: Any] {
