@@ -8,6 +8,7 @@
 import UIKit
 import MessageKit
 import InputBarAccessoryView
+import Firebase
 
 class ChatsViewController: MessagesViewController {
 
@@ -15,6 +16,7 @@ class ChatsViewController: MessagesViewController {
 	
 	//MARK: - Properties
 	private var messages: [MMessage] = []  //необходимо подписать вашу модель под протокол MessageType
+	private var messageListener: ListenerRegistration?
 	private let user: MUser
 	private let chat: MChat
 	
@@ -31,6 +33,10 @@ class ChatsViewController: MessagesViewController {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
+	deinit {
+		messageListener?.remove()
+	}
+	
 	
 	//MARK: - Lifecycle
 	override func viewDidLoad() {
@@ -44,7 +50,15 @@ class ChatsViewController: MessagesViewController {
 		messagesCollectionView.messagesDataSource = self
 		messagesCollectionView.messagesLayoutDelegate = self
 		messagesCollectionView.messagesDisplayDelegate = self
-		
+		messageListener = ListenerService.shared.messagesObserve(chat: chat, completion: { result in
+			switch result {
+				
+			case .success(let message):
+				self.insertNewMessage(message: message)
+			case .failure(let error):
+				self.showAlert(title: "error", message: error.localizedDescription)
+			}
+		})
 	}
 	
 	private func insertNewMessage(message: MMessage) {
@@ -117,6 +131,16 @@ extension ChatsViewController: InputBarAccessoryViewDelegate {
 	func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
 		let message = MMessage(user: user, content: text)
 		insertNewMessage(message: message)
+		FirestoreService.shared.sentMessage(chat: chat,
+																				message: message) { result in
+			switch result {
+				
+			case .success():
+				self.messagesCollectionView.scrollToLastItem() //скролл к нижнему сообщению при отправке
+			case .failure(let error):
+				self.showAlert(title: "Ошибка", message: error.localizedDescription)
+			}
+		}
 		inputBar.inputTextView.text = ""
 	}
 	
