@@ -199,9 +199,9 @@ class FirestoreService {
 		//добираемся до активного чата собеседника с текушим юзером (нами)
 		let friendRef = usersRef.document(chat.friendId).collection("activeChats").document(currentUser.id)
 		//добираемся до сообщений в активном чате у друга
-		let friendMessageRef = friendRef.collection("message")
+		let friendMessageRef = friendRef.collection("messages")
 		//референс на свои сообщения
-		let myMessageRef = usersRef.document(currentUser.id).collection("activeChats").document(chat.friendId).collection("message")
+		let myMessageRef = usersRef.document(currentUser.id).collection("activeChats").document(chat.friendId).collection("messages")
 		
 		//3 ссылки готовы, теперь добвавляем нужную информацию в них
 		guard let chatForFriend = MChat(friendUserName: currentUser.username,
