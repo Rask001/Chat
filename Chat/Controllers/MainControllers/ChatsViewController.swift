@@ -115,6 +115,10 @@ extension ChatsViewController: MessagesDataSource {
 	}
 }
 
+private func sendPhoto(image: UIImage) {
+	
+}
+
 
 //MARK: - MessagesLayoutDelegate
 extension ChatsViewController: MessagesLayoutDelegate {
@@ -223,6 +227,39 @@ extension ChatsViewController {
 		messageInputBar.layer.shadowOffset = CGSize(width: 0, height: 4)
 		
 		configureSendButton()
+		configureCameraIcon()
+	}
+	
+	func configureCameraIcon() {
+		let cameraItem = InputBarButtonItem(type: .system)
+		cameraItem.tintColor = #colorLiteral(red: 0.8137198091, green: 0.7213935256, blue: 0.953623116, alpha: 1)
+		let cameraImage = UIImage(systemName: "camera")!
+		cameraItem.image = cameraImage
+		cameraItem.addTarget(self, action: #selector(cameraButtonPressed), for: .primaryActionTriggered)
+		cameraItem.setSize(CGSize(width: 60, height: 30), animated: false)
+		
+		messageInputBar.leftStackView.alignment = .center
+		messageInputBar.setLeftStackViewWidthConstant(to: 50, animated: false)
+		messageInputBar.setStackViewItems([cameraItem], forStack: .left, animated: false)
+	}
+	@objc private func cameraButtonPressed() {
+		let picker = UIImagePickerController()
+		picker.delegate = self
+		if UIImagePickerController.isSourceTypeAvailable(.camera) {
+			picker.sourceType = .camera
+		} else {
+			picker.sourceType = .photoLibrary
+		}
+		present(picker, animated: true, completion: nil)
+	}
+	
+}
+
+extension ChatsViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+	func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+		picker.dismiss(animated: true)
+		guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
+		sendPhoto(image: image)
 	}
 }
 

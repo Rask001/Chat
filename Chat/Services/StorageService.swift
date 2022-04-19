@@ -41,4 +41,8 @@ class StorageService {
 			}
 		}
 	}
+	
+	func uploadImageMessage(photo: UIImage, to chat: MChat, completion: @escaping (Result<URL, Error>) -> Void) {
+		
+	}
 }
