@@ -65,11 +65,21 @@ class ChatsViewController: MessagesViewController {
 		guard !messages.contains(message) else { return } //проверка на отсутствие в нашем текущем массиве новых сообщений
 		messages.append(message)
 		messages.sort()
-		messagesCollectionView.reloadData()
+		scrollToLastMessage(message: message)
 	}
-	
-}
 
+	//скроллим до последнего сообщения вниз
+	func scrollToLastMessage(message: MMessage) {
+	let isLatestMessage = messages.firstIndex(of: message) == (messages.count - 1)
+	let shouldScrollToBottom = messagesCollectionView.isAtBottom && isLatestMessage
+	messagesCollectionView.reloadData()
+	if shouldScrollToBottom {
+		DispatchQueue.main.async {
+			self.messagesCollectionView.scrollToBottom(animated: true)
+		}
+	}
+}
+}
 
 //MARK: - Extension
 //MARK: - MessagesDataSource
@@ -91,6 +101,18 @@ extension ChatsViewController: MessagesDataSource {
 	func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
 		return 1
 	}
+	
+	//устанавливаем дату между сообщениями в диалоге
+	func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+		if indexPath.item % 10 == 0 {
+		return NSAttributedString(string: MessageKitDateFormatter.shared.string(from: message.sentDate),
+															attributes: [
+																NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10),
+																NSAttributedString.Key.foregroundColor: UIColor.darkGray])
+		}else{
+			return nil
+		}
+	}
 }
 
 
@@ -98,6 +120,15 @@ extension ChatsViewController: MessagesDataSource {
 extension ChatsViewController: MessagesLayoutDelegate {
 	func footerViewSize(for section: Int, in messagesCollectionView: MessagesCollectionView) -> CGSize {
 		return CGSize(width: 0, height: 8)
+	}
+	
+	//интервал между датой и сообщениями
+	func cellTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+		if (indexPath.item) % 10 == 0 {
+			return 30
+		} else {
+			return 0
+		}
 	}
 }
 
@@ -193,4 +224,20 @@ extension ChatsViewController {
 		
 		configureSendButton()
 	}
+}
+
+// MARK: - UIScrollView проверка где находться сообщение
+extension UIScrollView {
+	
+		var isAtBottom: Bool {
+				return contentOffset.y >= verticalOffsetForBottom
+		}
+		
+		var verticalOffsetForBottom: CGFloat {
+			let scrollViewHeight = bounds.height
+			let scrollContentSizeHeight = contentSize.height
+			let bottomInset = contentInset.bottom
+			let scrollViewBottomOffset = scrollContentSizeHeight + bottomInset - scrollViewHeight
+			return scrollViewBottomOffset
+		}
 }
