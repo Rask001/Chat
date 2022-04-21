@@ -42,7 +42,8 @@ class ChatsViewController: MessagesViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		if let layout = messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout {
-			layout.textMessageSizeCalculator.outgoingAvatarSize = .zero //убрать расстояние отсутствуюшей аватарки отправителя (для собеседника использовать свойство incomingAvatarSize)
+			layout.textMessageSizeCalculator.outgoingAvatarSize = .zero//убрать расстояние отсутствуюшей аватарки отправителя (для собеседника использовать свойство incomingAvatarSize)
+			layout.photoMessageSizeCalculator.outgoingAvatarSize = .zero//
 		}
 		messagesCollectionView.backgroundColor = .mainWhite()
 		configureMessageInputBar()
@@ -53,12 +54,48 @@ class ChatsViewController: MessagesViewController {
 		messageListener = ListenerService.shared.messagesObserve(chat: chat, completion: { result in
 			switch result {
 				
-			case .success(let message):
+			case .success(var message):
+				if let url = message.downloadURL {
+					StorageService.shared.downloadImage(url: url) { [weak self] result in
+						guard let self = self else { return }
+						switch result {
+							
+						case .success(let image):
+							message.image = image
+							self.insertNewMessage(message: message)
+						case .failure(let error):
+							self.showAlert(title: "error", message: error.localizedDescription)
+						}
+					}
+				} else {
 				self.insertNewMessage(message: message)
+				}
 			case .failure(let error):
 				self.showAlert(title: "error", message: error.localizedDescription)
 			}
 		})
+	}
+	
+	private func sendPhoto(image: UIImage) {
+		StorageService.shared.uploadImageMessage(photo: image, to: chat) { result in
+			switch result {
+				
+			case .success(let url):
+				var message = MMessage(user: self.user, image: image)
+				message.downloadURL = url
+				FirestoreService.shared.sentMessage(chat: self.chat, message: message) { result in
+					switch result {
+						
+					case .success():
+						self.messagesCollectionView.scrollToBottom()
+					case .failure(_):
+						self.showAlert(title: "error", message: "Изображение не было доставлено")
+					}
+				}
+			case .failure(let error):
+				self.showAlert(title: "error", message: error.localizedDescription)
+			}
+		}
 	}
 	
 	private func insertNewMessage(message: MMessage) {
@@ -113,10 +150,6 @@ extension ChatsViewController: MessagesDataSource {
 			return nil
 		}
 	}
-}
-
-private func sendPhoto(image: UIImage) {
-	
 }
 
 
