@@ -51,6 +51,7 @@ class ChatsViewController: MessagesViewController {
 		messagesCollectionView.messagesDataSource = self
 		messagesCollectionView.messagesLayoutDelegate = self
 		messagesCollectionView.messagesDisplayDelegate = self
+		
 		messageListener = ListenerService.shared.messagesObserve(chat: chat, completion: { result in
 			switch result {
 				
@@ -59,7 +60,6 @@ class ChatsViewController: MessagesViewController {
 					StorageService.shared.downloadImage(url: url) { [weak self] result in
 						guard let self = self else { return }
 						switch result {
-							
 						case .success(let image):
 							message.image = image
 							self.insertNewMessage(message: message)

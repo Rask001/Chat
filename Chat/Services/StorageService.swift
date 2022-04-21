@@ -12,6 +12,8 @@ import FirebaseStorage
 //MARK: - Upload photo to Firestore
 class StorageService {
 	
+	var imageCache = NSCache<NSString,UIImage>()
+	
 //MARK: - Properties
 	static let shared = StorageService()
 	let storageRef = Storage.storage().reference()
@@ -70,6 +72,9 @@ class StorageService {
 	
 	//отоброжение фотографий в чате
 	func downloadImage(url: URL, completion: @escaping (Result<UIImage?, Error>) -> Void) {
+//		if let cachedImage = imageCache.object(forKey: url.absoluteString as NSString) {
+//			completion(.success(cachedImage))
+//		} else {
 		let ref = Storage.storage().reference(forURL: url.absoluteString)
 		let megaByte = Int64(1 * 1024 * 1024)
 		ref.getData(maxSize: megaByte) { data, error in
@@ -78,6 +83,11 @@ class StorageService {
 				return
 			}
 			completion(.success(UIImage(data: imageData)))
+			
 		}
-	}
+//		self.imageCache.setObject(UIImage(data: imageData)!, forKey: url.absoluteString as NSString)
+//		DispatchQueue.main.async {
+//			completion(.success(UIImage(imageCache)))
+//	}
+}
 }
