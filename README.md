@@ -6,7 +6,7 @@ chat reWrite
 
 что используется в приложении:
 
-MessageKit \n
+MessageKit
 Email/Google Authentication
 User profile setup
 Firebase Firestore and Storage
