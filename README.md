@@ -1,16 +1,13 @@
 # Chat
-chat reWrite
+### Создание чата по урокам SWIFTBOOK ###
 
+#### реализовано в приложении: ####
 
-Создание чата по урокам SWIFTBOOK
-
-что используется в приложении:
-
-MessageKit
-Email/Google Authentication
-User profile setup
-Firebase Firestore and Storage
-Real-time chat with image/text messages
-Global users search
-NSLayoutAnchor and StackViews
-UICollectionView Compositional Layout
+1. MessageKit
+2. Email/Google Authentication
+3. User profile setup
+4. Firebase Firestore and Storage
+5. Real-time chat with image/text messages
+6. Global users search
+7. NSLayoutAnchor and StackViews
+8. UICollectionView Compositional Layout
